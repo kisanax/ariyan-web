@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { products } from "@/lib/products";
 import RevealSection from "@/components/RevealSection";
+import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   const featured = products.slice(0, 3);
@@ -23,18 +24,12 @@ export default function HomePage() {
           Indonesia.
         </p>
         <div className="mt-10 flex justify-center gap-4">
-          <Link
-            href="/produk"
-            className="rounded-full bg-brand px-7 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-          >
-            Lihat Produk
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-full border border-ink-300 px-7 py-3 text-sm font-medium text-ink-900 transition-colors hover:border-brand hover:text-brand"
-          >
-            Hubungi Kami
-          </Link>
+          <Button asChild size="lg">
+            <Link href="/produk">Lihat Produk</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/contact">Hubungi Kami</Link>
+          </Button>
         </div>
       </section>
 

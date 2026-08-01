@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import MobileNav from "@/components/MobileNav";
 
 const navItems = [
   { label: "Beranda", href: "/" },
@@ -37,14 +39,16 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <a
-          href="https://wa.me/6285719906608"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Hubungi Sales
-        </a>
+        <Button asChild size="sm" className="hidden md:inline-flex">
+          <a
+            href="https://wa.me/6285719906608"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hubungi Sales
+          </a>
+        </Button>
+        <MobileNav />
       </div>
     </header>
   );
