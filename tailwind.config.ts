@@ -64,7 +64,13 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: [
+          "ui-rounded",
+          '"M PLUS Rounded 1c"',
+          "var(--font-nunito)",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       spacing: {
         section: "7rem",

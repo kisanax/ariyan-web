@@ -22,7 +22,6 @@ export default function Header() {
     function onScroll() {
       setScrolled(window.scrollY > 40);
     }
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -30,17 +29,15 @@ export default function Header() {
   return (
     <div
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 transition-[padding] duration-400 ease-out sm:px-6",
-        // Di mobile selalu inset+blur; di desktop cuma inset+blur pas scroll
-        scrolled ? "md:px-4 md:pt-3 lg:px-6" : "md:px-0 md:pt-0"
+        "fixed inset-x-0 top-0 z-50 flex justify-center transition-[padding] duration-400 ease-out",
+        scrolled && "px-4 pt-3 sm:px-6"
       )}
     >
       <header
         className={cn(
-          "flex w-full max-w-7xl items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-5 py-3 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-400 ease-out",
-          // Di desktop, sebelum scroll: transparan & full padding, tanpa card
-          !scrolled &&
-            "md:border-transparent md:bg-transparent md:px-10 md:py-5 md:shadow-none md:backdrop-blur-none"
+          "flex w-full max-w-7xl items-center justify-between px-6 py-5 transition-all duration-400 ease-out lg:px-10",
+          scrolled &&
+            "rounded-2xl border border-white/60 bg-white/70 px-5 py-3 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)] backdrop-blur-xl backdrop-saturate-150"
         )}
       >
         <Link href="/" className="flex items-center gap-2.5">
@@ -52,7 +49,7 @@ export default function Header() {
             className="h-8 w-8 object-contain"
             priority
           />
-          <span className="hidden text-base font-semibold tracking-tight text-ink-900 md:inline md:text-lg">
+          <span className="text-base font-semibold tracking-tight text-ink-900 sm:text-lg">
             PT Ariyan Medika Utama
           </span>
         </Link>

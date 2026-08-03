@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="mx-auto max-w-5xl px-6 pb-section pt-32 text-center lg:px-12">
+      <section className="mx-auto max-w-5xl px-6 pb-section pt-12 text-center lg:px-12">
         <p className="text-sm font-medium uppercase tracking-widest text-brand">
           Service From Heart
         </p>
