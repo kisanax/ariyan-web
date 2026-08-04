@@ -22,7 +22,7 @@ export default function MobileNav() {
       <SheetTrigger asChild>
         <button
           aria-label="Buka menu navigasi"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-ink-900 md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-full text-ink-900 md:hidden"
         >
           <Menu className="h-6 w-6" />
         </button>
