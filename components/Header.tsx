@@ -37,7 +37,7 @@ export default function Header() {
     >
       <header
         className={cn(
-          "flex w-full max-w-7xl items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-2.5 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-400 ease-out md:px-5 md:py-3",
+          "flex w-full max-w-7xl items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-2.5 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)] backdrop-blur-xl backdrop-saturate-550 transition-all duration-400 ease-out md:px-5 md:py-3",
           // Di desktop, sebelum scroll: transparan & full padding, tanpa card
           !scrolled &&
             "md:border-transparent md:bg-transparent md:px-10 md:py-5 md:shadow-none md:backdrop-blur-none"
@@ -49,7 +49,7 @@ export default function Header() {
             alt="Logo PT Ariyan Medika Utama"
             width={32}
             height={32}
-            className="h-6.5 w-6.5 object-contain md:h-8 md:w-8"
+            className="h-6.5 w-6.5 object-contain md:h-10 md:w-10"
             priority
           />
           <span className="hidden text-base font-semibold tracking-tight text-ink-900 md:inline md:text-lg">

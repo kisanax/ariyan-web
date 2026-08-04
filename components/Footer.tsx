@@ -27,10 +27,10 @@ export default function Footer() {
                 alt="Logo PT Ariyan Medika Utama"
                 width={32}
                 height={32}
-                className="h-8 w-8 object-contain"
+                className="h-20 w-20 object-contain"
               />
-              <span className="text-4xl font-bold tracking-tight text-ink-900 sm:text-[48px]">
-                Ariyan Medika
+              <span className="text-4xl font-bold tracking-tight text-ink-900 sm:text-[38px]">
+                Ariyan Medika Utama
               </span>
             </div>
             <p className="text-base leading-relaxed text-ink-500 sm:text-lg">
