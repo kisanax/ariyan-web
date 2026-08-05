@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative hiden">
         {/* Background dots, fade ke bawah */}
         <div
           className="pointer-events-none absolute -top-24 inset-x-0 bottom-0 [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_85%)]"
@@ -44,7 +44,7 @@ export default function HomePage() {
                 <Link href="/produk">Lihat Produk</Link>
               </Button>
               <p className="mt-3 text-sm text-ink-500">
-                ↳ Konsultasi kebutuhan alkes Anda, gratis
+                ↳ Jelajahi produk kami
               </p>
             </div>
           </div>

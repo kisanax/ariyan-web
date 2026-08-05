@@ -25,8 +25,8 @@ export default function Footer() {
               <Image
                 src="/images/logo-icon.png"
                 alt="Logo PT Ariyan Medika Utama"
-                width={26}
-                height={26}
+                width={32}
+                height={32}
                 className="h-6.5 w-6.5 object-contain"
               />
               <span className="text-xl font-bold tracking-tight text-ink-900">

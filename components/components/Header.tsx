@@ -58,7 +58,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-ink-700/80 transition-opacity hover:opacity-100 hover:text-brand"
+              className="text-lg font-medium text-ink-700/80 transition-opacity hover:opacity-100 hover:text-brand"
             >
               {item.label}
             </Link>
