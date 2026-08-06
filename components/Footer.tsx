@@ -27,13 +27,13 @@ export default function Footer() {
                 alt="Logo PT Ariyan Medika Utama"
                 width={32}
                 height={32}
-                className="h-20 w-20 object-contain"
+                className="h-18 w-18 object-contain"
               />
-              <span className="text-4xl font-bold tracking-tight text-ink-900 sm:text-[38px]">
-                Ariyan Medika Utama
+              <span className="text-4xl font-bold tracking-tight text-ink-900 sm:text-[36px]">
+                Ariyan Medika
               </span>
             </div>
-            <p className="text-base leading-relaxed text-ink-500 sm:text-lg">
+            <p className="text-sm leading-relaxed text-ink-500 sm:text-lg">
               Distributor alat kesehatan dan laboratorium tepercaya. Tepat
               Barang, Tepat Kualitas, Tepat Waktu — untuk seluruh Indonesia.
             </p>

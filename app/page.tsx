@@ -3,6 +3,8 @@ import Image from "next/image";
 import { products } from "@/lib/products";
 import RevealSection from "@/components/RevealSection";
 import { Button } from "@/components/ui/button";
+import LogoMarquee from "@/components/LogoMarquee";
+import TrustLogosMultiRow from "@/components/TrustLogosMultiRow";
 
 export default function HomePage() {
   const featured = products.slice(0, 3);
@@ -10,14 +12,14 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative hiden">
+      <section className="relative">
         {/* Background dots, fade ke bawah */}
         <div
           className="pointer-events-none absolute -top-24 inset-x-0 bottom-0 [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_85%)]"
           style={{
             backgroundImage:
               "radial-gradient(circle, #CBD5E1 1px, transparent 1px)",
-            backgroundSize: "16px 16px",
+            backgroundSize: "22px 22px",
           }}
         />
 
@@ -44,7 +46,7 @@ export default function HomePage() {
                 <Link href="/produk">Lihat Produk</Link>
               </Button>
               <p className="mt-3 text-sm text-ink-500">
-                ↳ Jelajahi produk kami
+                ↳ Konsultasi kebutuhan alkes Anda, gratis
               </p>
             </div>
           </div>
@@ -67,12 +69,12 @@ export default function HomePage() {
             </div>
 
             {/* Badge mengambang kiri atas */}
-            <div className="absolute -left-4 top-6 flex items-center gap-2 rounded-xl bg-ink-900 px-4 py-2.5 text-white shadow-lg sm:-left-8">
+            <div className="absolute left-2 top-6 flex items-center gap-2 rounded-xl bg-ink-900 px-4 py-2.5 text-white shadow-lg sm:-left-8">
               <span className="text-xs font-medium">✓ CDAKB Certified</span>
             </div>
 
             {/* Badge mengambang kanan bawah */}
-            <div className="absolute -right-4 bottom-8 flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 shadow-lg sm:-right-8">
+            <div className="absolute right-2 bottom-8 flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 shadow-lg sm:-right-8">
               <span className="text-xs font-semibold text-ink-900">
                 50+ RS &amp; Institusi Terpercaya
               </span>
@@ -81,19 +83,71 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Trust strip */}
-      <RevealSection className="border-y border-ink-100 bg-ink-100/30 py-10">
-        <div className="mx-auto max-w-6xl px-6 lg:px-12">
-          <p className="text-center text-xs uppercase tracking-widest text-ink-500">
-            Dipercaya oleh institusi kesehatan di seluruh Indonesia
+      {/* Trust strip — logo customer (RS, Puskesmas, dst), 3 baris arah gantian */}
+      <RevealSection className="border-y border-ink-100 bg-ink-100/30 py-14">
+        <div className="mx-auto max-w-3xl px-6 text-center lg:px-12">
+          <h2 className="text-2xl font-semibold tracking-tight text-ink-900">
+            Dipercaya oleh Institusi Kesehatan
+          </h2>
+          <p className="mt-2 text-sm text-ink-500">
+            Puluhan rumah sakit, laboratorium, universitas, dan instansi
+            pemerintah telah mempercayakan kebutuhan alat kesehatan mereka pada kami.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm font-medium text-ink-500">
-            <span>RSUD Kota Bogor</span>
-            <span>RSUD Sayang</span>
-            <span>Universitas Kristen Indonesia</span>
-            <span>Dinas Kesehatan Kab. Bandung</span>
-            <span>RSUP dr. Sitanala</span>
-          </div>
+        </div>
+        <div className="mt-10">
+          <TrustLogosMultiRow />
+        </div>
+      </RevealSection>
+
+      {/* Kategori Produk */}
+      <RevealSection className="mx-auto max-w-6xl px-6 py-section lg:px-12">
+        <div className="text-center">
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900">
+            Kategori Produk
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-ink-500">
+            Satu mitra, ribuan kebutuhan lab dan alkes Anda.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              name: "Laboratory",
+              desc: "Hematology, Kimia Klinik, Mikrobiologi, dan lainnya",
+              href: "/produk?category=laboratory",
+            },
+            {
+              name: "BMHP",
+              desc: "Bahan Medis Habis Pakai",
+              href: "/produk?category=bmhp",
+            },
+            {
+              name: "Non Medical Equipment",
+              desc: "Peralatan penunjang non-medis",
+              href: "/produk?category=non-medical",
+            },
+            {
+              name: "General Supplies",
+              desc: "Kebutuhan umum fasilitas kesehatan",
+              href: "/produk?category=general-supplies",
+            },
+          ].map((category) => (
+            <Link
+              key={category.name}
+              href={category.href}
+              className="group relative overflow-hidden rounded-2xl border border-ink-100 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-[0_20px_40px_-12px_rgba(18,115,179,0.3)]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-brand to-brand-teal opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="text-lg font-semibold text-ink-900 transition-colors group-hover:text-white">
+                  {category.name}
+                </h3>
+                <p className="mt-2 text-sm text-ink-500 transition-colors group-hover:text-white/85">
+                  {category.desc}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </RevealSection>
 
@@ -163,6 +217,14 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </RevealSection>
+
+      {/* Principal & Brand Partners */}
+      <RevealSection className="border-t border-ink-100 py-14">
+        <p className="mb-8 text-center text-xs uppercase tracking-widest text-ink-500">
+          Bekerja Sama dengan Principal Terpercaya
+        </p>
+        <LogoMarquee />
       </RevealSection>
     </div>
   );

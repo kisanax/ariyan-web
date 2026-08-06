@@ -30,17 +30,17 @@ export default function Header() {
   return (
     <div
       className={cn(
-        "fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 transition-[padding] duration-400 ease-out sm:px-6",
-        // Di mobile selalu inset+blur; di desktop cuma inset+blur pas scroll
+        "fixed inset-x-0 top-0 z-50 flex justify-center transition-[padding] duration-400 ease-out",
+        // Mobile: selalu floating dengan padding
+        "px-3 pt-2 sm:px-5 sm:pt-3",
+        // Desktop: ikut scroll behavior
         scrolled ? "md:px-4 md:pt-3 lg:px-6" : "md:px-0 md:pt-0"
       )}
     >
       <header
         className={cn(
-          "flex w-full max-w-7xl items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-2.5 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)] backdrop-blur-xl backdrop-saturate-550 transition-all duration-400 ease-out md:px-5 md:py-3",
-          // Di desktop, sebelum scroll: transparan & full padding, tanpa card
-          !scrolled &&
-            "md:border-transparent md:bg-transparent md:px-10 md:py-5 md:shadow-none md:backdrop-blur-none"
+          "flex w-full max-w-7xl items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-2 shadow-[0_8px_24px_-8px_rgba(15,23,42,0.15)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-400 ease-out",
+          "sm:py-2.5 md:px-5 md:py-3 md:shadow-[0_12px_32px_-12px_rgba(15,23,42,0.18)]",
         )}
       >
         <Link href="/" className="flex items-center gap-2.5">
