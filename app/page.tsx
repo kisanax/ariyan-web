@@ -151,6 +151,91 @@ export default function HomePage() {
         </div>
       </RevealSection>
 
+      {/* Layanan Kami */}
+      <RevealSection className="relative overflow-hidden py-section">
+        {/* Subtle gradient background */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-[#f0f9ff] to-white" />
+
+        <div className="relative mx-auto max-w-6xl px-6 lg:px-12">
+          <div className="text-center">
+            <p className="text-sm font-medium uppercase tracking-widest text-brand">
+              Bengkel Workshop Siap Melayani
+            </p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink-900 lg:text-4xl">
+              Layanan Kami
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-ink-500">
+              Tim teknisi berpengalaman &amp; bersertifikat siap membantu
+              maintenance, perbaikan, dan kalibrasi alat-alat laboratorium di
+              institusi kesehatan Anda.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                image: "/images/service-maintenance.png",
+                name: "Maintenance",
+                desc: "Perawatan berkala alat laboratorium untuk performa optimal dan umur pakai lebih panjang.",
+              },
+              {
+                image: "/images/service-kalibrasi.png",
+                name: "Kalibrasi",
+                desc: "Kalibrasi alat sesuai standar untuk menjamin akurasi hasil pemeriksaan.",
+              },
+              {
+                image: "/images/service-perbaikan.png",
+                name: "Perbaikan",
+                desc: "Perbaikan dan troubleshooting alat laboratorium oleh teknisi bersertifikat.",
+              },
+              {
+                image: "/images/service-instalasi.png",
+                name: "Instalasi & Training",
+                desc: "Instalasi alat baru dan pelatihan penggunaan untuk tim Anda.",
+              },
+            ].map((service) => (
+              <div
+                key={service.name}
+                className="group relative"
+              >
+                {/* Animated gradient border */}
+                <div className="animate-border-glow absolute -inset-[1px] rounded-2xl opacity-0 blur-[1px] transition-opacity duration-500 group-hover:opacity-100" />
+                {/* Card content */}
+                <div className="relative h-full overflow-hidden rounded-2xl border border-ink-100 bg-white/80 p-0 backdrop-blur-md transition-all duration-300 group-hover:-translate-y-1 group-hover:border-transparent group-hover:bg-white group-hover:shadow-[0_24px_48px_-12px_rgba(18,115,179,0.15)] flex flex-col">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-ink-100">
+                    <Image
+                      src={service.image}
+                      alt={service.name}
+                      width={400}
+                      height={300}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="text-lg font-semibold text-ink-900">
+                      {service.name}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-500">
+                      {service.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Button asChild size="lg">
+              <a
+                href="https://wa.me/6285719906608?text=Halo%2C%20saya%20ingin%20konsultasi%20layanan%20service%20alat%20lab"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Konsultasi Layanan →
+              </a>
+            </Button>
+          </div>
+        </div>
+      </RevealSection>
+
       {/* Featured products */}
       <section className="mx-auto max-w-6xl px-6 py-section lg:px-12">
         <div className="flex items-end justify-between">

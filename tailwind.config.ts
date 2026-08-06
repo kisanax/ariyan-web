@@ -65,9 +65,13 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          '"SF Pro Rounded"',
           "ui-rounded",
-          '"M PLUS Rounded 1c"',
           "var(--font-nunito)",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
           "system-ui",
           "sans-serif",
         ],
@@ -81,10 +85,15 @@ const config: Config = {
           "0%": { transform: "translateX(-50%)" },
           "100%": { transform: "translateX(0)" },
         },
+        "border-spin": {
+          "0%": { "--angle": "0deg" },
+          "100%": { "--angle": "360deg" },
+        },
       },
       animation: {
         marquee: "marquee 28s linear infinite",
         "marquee-reverse": "marquee-reverse 28s linear infinite",
+        "border-spin": "border-spin 3s linear infinite",
       },
       spacing: {
         section: "7rem",

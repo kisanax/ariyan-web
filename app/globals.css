@@ -57,3 +57,26 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Animated gradient border for service cards */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-glow {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}
+
+.animate-border-glow {
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 40%,
+    #1273B3 45%,
+    #1FB89A 55%,
+    transparent 60%
+  );
+  animation: border-glow 3s linear infinite;
+}
