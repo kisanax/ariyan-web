@@ -1,26 +1,32 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Product } from "@/lib/products";
+import type { Product } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity";
 
 export default function ProductCard({ product }: { product: Product }) {
+  // Gunakan gambar placeholder jika produk belum memiliki gambar di Sanity
+  const imageUrl = product.image 
+    ? urlFor(product.image).url() 
+    : "/images/placeholder-product.svg";
+
   return (
     <Link href={`/produk/${product.slug}`} className="group block">
-      <div className="aspect-square overflow-hidden rounded-2xl bg-ink-100">
+      <div className="aspect-square overflow-hidden rounded-xl bg-ink-50">
         <Image
-          src={product.image}
+          src={imageUrl}
           alt={product.name}
           width={400}
           height={400}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
-      <p className="mt-3 text-xs font-medium uppercase tracking-wide text-brand">
-        {product.category}
-      </p>
-      <h3 className="mt-1 text-base font-medium text-ink-900">
-        {product.name}
-      </h3>
-      <p className="mt-1 text-sm text-ink-500">{product.brand}</p>
+      <div className="mt-4 space-y-1">
+        <h3 className="text-sm font-semibold text-ink-900 group-hover:text-brand transition-colors">
+          {product.name}
+        </h3>
+        <p className="text-xs text-ink-500">{product.brand}</p>
+        <p className="text-xs text-ink-400">{product.category}</p>
+      </div>
     </Link>
   );
 }

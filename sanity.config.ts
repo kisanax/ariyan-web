@@ -7,8 +7,9 @@ export default defineConfig({
   title: "PT Ariyan Medika Utama",
 
   // Ganti dengan Project ID & dataset kamu sendiri dari sanity.io/manage
-  projectId: "YOUR_PROJECT_ID",
+  projectId: "vimf3t3j",
   dataset: "production",
+  basePath: "/studio",
 
   plugins: [structureTool()],
 
