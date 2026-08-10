@@ -39,9 +39,11 @@ function FilterSection({
 export default function ProductFilters({
   categories,
   brands,
+  principals,
 }: {
   categories: string[];
   brands: string[];
+  principals: string[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -49,6 +51,7 @@ export default function ProductFilters({
 
   const activeCategory = searchParams.get("category");
   const activeBrand = searchParams.get("brand");
+  const activePrincipal = searchParams.get("principal");
 
   function updateParam(key: string, value: string | null) {
     const params = new URLSearchParams(searchParams.toString());
@@ -60,7 +63,7 @@ export default function ProductFilters({
     router.push(`${pathname}?${params.toString()}`);
   }
 
-  const hasActiveFilters = activeCategory || activeBrand;
+  const hasActiveFilters = activeCategory || activeBrand || activePrincipal;
 
   return (
     <aside>
@@ -116,6 +119,26 @@ export default function ProductFilters({
               }`}
             >
               {b}
+            </button>
+          ))}
+        </div>
+      </FilterSection>
+
+      <FilterSection title="Principal">
+        <div className="space-y-1">
+          {principals.map((p) => (
+            <button
+              key={p}
+              onClick={() =>
+                updateParam("principal", activePrincipal === p ? null : p)
+              }
+              className={`block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                activePrincipal === p
+                  ? "bg-brand/10 font-medium text-brand"
+                  : "text-ink-600 hover:bg-ink-50 hover:text-ink-900"
+              }`}
+            >
+              {p}
             </button>
           ))}
         </div>

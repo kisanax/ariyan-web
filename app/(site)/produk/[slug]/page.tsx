@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductBySlug, urlFor } from "@/lib/sanity";
+import { getProductBySlug } from "@/lib/sanity";
+import ProductGallery from "@/components/ProductGallery";
 
 export default async function ProductDetailPage({
   params,
@@ -16,10 +16,6 @@ export default async function ProductDetailPage({
   const waMessage = encodeURIComponent(
     `Halo, saya ingin menanyakan ketersediaan dan penawaran harga untuk produk: ${product.name}`
   );
-
-  const imageUrl = product.image 
-    ? urlFor(product.image).url() 
-    : "/images/placeholder-product.svg";
 
   return (
     <div>
@@ -38,14 +34,11 @@ export default async function ProductDetailPage({
 
       <div className="mx-auto max-w-6xl px-6 py-10 lg:px-12">
         <div className="grid gap-12 lg:grid-cols-2">
-          {/* Image */}
-          <div className="aspect-square overflow-hidden rounded-xl bg-ink-50">
-            <Image
-              src={imageUrl}
-              alt={product.name}
-              width={600}
-              height={600}
-              className="h-full w-full object-cover"
+          {/* Image Gallery */}
+          <div className="w-full">
+            <ProductGallery 
+              images={product.gallery || (product.image ? [product.image] : [])} 
+              productName={product.name} 
             />
           </div>
 

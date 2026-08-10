@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./sanity/schemaTypes";
+import { ImportProductsTool } from "./sanity/tools/ImportProductsTool";
 
 export default defineConfig({
   name: "default",
@@ -12,6 +13,15 @@ export default defineConfig({
   basePath: "/studio",
 
   plugins: [structureTool()],
+
+  tools: (prev) => [
+    ...prev,
+    {
+      name: "import-products",
+      title: "Import Produk",
+      component: ImportProductsTool,
+    },
+  ],
 
   schema: {
     types: schemaTypes,

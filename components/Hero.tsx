@@ -20,48 +20,48 @@ export default function Hero() {
       { scale: 1.1, opacity: 0 },
       { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" }
     )
-    // 2. Ornamen SVG swoosh masuk secara halus
-    .fromTo(
-      ".hero-swoosh",
-      { opacity: 0, x: -50 },
-      { opacity: 0.7, x: 0, duration: 1.2 },
-      "-=1.2"
-    )
-    // 3. Titik dekoratif muncul satu per satu
-    .fromTo(
-      ".hero-dots span",
-      { opacity: 0, scale: 0 },
-      { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1 },
-      "-=0.8"
-    )
-    // 4. Judul naik dan muncul
-    .fromTo(
-      ".hero-title",
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1 },
-      "-=0.5"
-    )
-    // 5. Deskripsi menyusul
-    .fromTo(
-      ".hero-desc",
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8 },
-      "-=0.7"
-    )
-    // 6. Tombol-tombol muncul
-    .fromTo(
-      ".hero-btns",
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8 },
-      "-=0.6"
-    )
-    // 7. Kartu sertifikat & institusi masuk dari kiri
-    .fromTo(
-      ".hero-card",
-      { opacity: 0, x: -30 },
-      { opacity: 1, x: 0, duration: 0.8, stagger: 0.15 },
-      "-=0.5"
-    );
+      // 2. Ornamen SVG swoosh masuk secara halus
+      .fromTo(
+        ".hero-swoosh",
+        { opacity: 0, x: -50 },
+        { opacity: 0.7, x: 0, duration: 1.2 },
+        "-=1.2"
+      )
+      // 3. Titik dekoratif muncul satu per satu
+      .fromTo(
+        ".hero-dots span",
+        { opacity: 0, scale: 0 },
+        { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1 },
+        "-=0.8"
+      )
+      // 4. Judul naik dan muncul
+      .fromTo(
+        ".hero-title",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1 },
+        "-=0.5"
+      )
+      // 5. Deskripsi menyusul
+      .fromTo(
+        ".hero-desc",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        "-=0.7"
+      )
+      // 6. Tombol-tombol muncul
+      .fromTo(
+        ".hero-btns",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        "-=0.6"
+      )
+      // 7. Kartu sertifikat & institusi masuk dari kiri
+      .fromTo(
+        ".hero-card",
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8, stagger: 0.15 },
+        "-=0.5"
+      );
   }, { scope: container });
 
   return (
@@ -109,7 +109,7 @@ export default function Hero() {
 
       {/* Content Container */}
       <div className="relative z-10 mx-auto w-full max-w-7xl 2xl:max-w-[90rem] px-6 pt-32 pb-20 sm:py-24 lg:px-12 2xl:px-20 lg:py-32">
-        
+
         {/* Left-Aligned Text Content */}
         <div className="max-w-2xl 2xl:max-w-3xl">
           {/* Small decorative dots like Kalbe */}
@@ -120,19 +120,19 @@ export default function Hero() {
             <span className="h-2 w-2 rounded-full bg-ink-700"></span>
             <span className="h-2 w-2 rounded-full bg-ink-700"></span>
           </div>
-          
+
           <h1 className="hero-title text-4xl font-extrabold leading-[1.15] tracking-tight text-ink-900 md:text-5xl lg:text-[3.25rem] 2xl:text-[4.25rem]">
             Akses Alat Kesehatan Berkualitas untuk{" "}
             <span className="bg-gradient-to-r from-brand to-brand-teal bg-clip-text text-transparent">
               Kehidupan yang Lebih Baik
             </span>
           </h1>
-          
+
           <p className="hero-desc mt-6 text-lg leading-relaxed text-ink-600 sm:text-xl 2xl:text-2xl 2xl:leading-relaxed">
             Mendukung peningkatan mutu pelayanan rumah sakit, klinik, dan
             laboratorium di seluruh Indonesia dengan jaminan standar CDAKB Kemenkes RI.
           </p>
-          
+
           <div className="hero-btns mt-10 flex flex-wrap items-center gap-4">
             <Button asChild size="lg" className="h-14 rounded-full bg-gradient-to-r from-brand to-brand-teal px-8 text-base font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/35 border-0">
               <Link href="/produk">Eksplorasi Produk</Link>
@@ -147,16 +147,17 @@ export default function Hero() {
 
         {/* Bottom Floating Cards (Kalbe Style) */}
         <div className="mt-16 flex flex-col items-start gap-4 sm:mt-24 sm:flex-row sm:items-center">
-          
-          {/* CDAKB Certificate Card - styled like the green KLBF card in reference */}
-          <div className="hero-card flex items-center gap-4 rounded-2xl bg-gradient-to-br from-[#9ecb3c] to-[#7fb324] p-4 pr-8 shadow-xl shadow-[#9ecb3c]/30 sm:pr-10">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 text-white shadow-inner backdrop-blur-sm">
-              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-white/90 uppercase tracking-widest">Sertifikasi Resmi</p>
-              <p className="text-xl font-bold text-white sm:text-2xl">CDAKB</p>
-            </div>
+
+          {/* CDAKB Certificate Logo */}
+          <div className="hero-card flex items-center justify-center">
+            <Image
+              src="/images/certifications/cdakb.png"
+              alt="Sertifikasi Resmi CDAKB"
+              width={400}
+              height={160}
+              // Shadow ganda diperhalus agar tidak terlalu pekat/hitam di mobile, namun teks putih tetap bisa terbaca
+              className="h-28 sm:h-40 w-auto object-contain object-left [filter:drop-shadow(0_12px_24px_rgba(0,0,0,0.15))_drop-shadow(0_0_12px_rgba(0,0,0,0.35))] transition-transform duration-300 hover:-translate-y-1"
+            />
           </div>
 
           {/* Trusted By Card */}

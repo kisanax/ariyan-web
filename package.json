@@ -28,7 +28,8 @@
     "sanity": "^3.62.0",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^3.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^22.7.0",

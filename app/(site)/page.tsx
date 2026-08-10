@@ -7,10 +7,11 @@ import LogoMarquee from "@/components/LogoMarquee";
 import TrustLogosMultiRow from "@/components/TrustLogosMultiRow";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Hero from "@/components/Hero";
+import FeaturedProductsCarousel from "@/components/FeaturedProductsCarousel";
 
 export default async function HomePage() {
   const products = await getProducts({});
-  const featured = products.slice(0, 3);
+  const featured = products.slice(0, 8);
 
   return (
     <div>
@@ -150,29 +151,7 @@ export default async function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {featured.map((product) => (
-            <RevealSection key={product.slug}>
-              <Link href={`/produk/${product.slug}`} className="group block">
-                <div className="aspect-square overflow-hidden rounded-2xl bg-ink-100">
-                  <Image
-                    src={product.image ? urlFor(product.image).url() : "/images/placeholder-product.svg"}
-                    alt={product.name}
-                    width={400}
-                    height={400}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                </div>
-                <p className="mt-4 text-xs font-medium uppercase tracking-wide text-brand">
-                  {product.category}
-                </p>
-                <h3 className="mt-1 text-lg font-medium text-ink-900">
-                  {product.name}
-                </h3>
-              </Link>
-            </RevealSection>
-          ))}
-        </div>
+        <FeaturedProductsCarousel products={featured} />
       </section>
 
       {/* Kategori Produk */}

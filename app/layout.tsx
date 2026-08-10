@@ -20,8 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={nunito.variable}>
-      <body className="font-sans">{children}</body>
+    <html lang="id" className={nunito.variable} suppressHydrationWarning>
+      <body className="font-sans" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

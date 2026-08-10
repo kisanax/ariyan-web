@@ -21,7 +21,9 @@ export type Product = {
   name: string;
   category: string;
   brand: string;
+  brandLogo?: any;
   principal: string;
+  principalLogo?: any;
   image: any;
   gallery: any[];
   shortDescription: string;
@@ -35,11 +37,13 @@ export type Product = {
 export async function getProducts({
   category,
   brand,
+  principal,
   searchQuery,
   sort,
 }: {
   category?: string;
   brand?: string;
+  principal?: string;
   searchQuery?: string;
   sort?: string;
 }): Promise<Product[]> {
@@ -50,6 +54,9 @@ export async function getProducts({
   }
   if (brand) {
     filterConditions.push(`brand->name == "${brand}"`);
+  }
+  if (principal) {
+    filterConditions.push(`principal->name == "${principal}"`);
   }
   if (searchQuery) {
     filterConditions.push(`name match "*${searchQuery}*"`);
@@ -70,7 +77,9 @@ export async function getProducts({
     name,
     "category": category->name,
     "brand": brand->name,
+    "brandLogo": brand->logo,
     "principal": principal->name,
+    "principalLogo": principal->logo,
     "image": gallery[0],
     shortDescription
   }`;
@@ -85,7 +94,9 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     name,
     "category": category->name,
     "brand": brand->name,
+    "brandLogo": brand->logo,
     "principal": principal->name,
+    "principalLogo": principal->logo,
     gallery,
     "image": gallery[0],
     shortDescription,
@@ -116,6 +127,6 @@ export type Principal = {
 };
 
 export async function getPrincipals(): Promise<Principal[]> {
-  const query = `*[_type == "principal" && defined(logo)] { name, "logo": logo.asset->url }`;
+  const query = `*[_type == "principal"] | order(name asc) { name, "logo": logo.asset->url }`;
   return await client.fetch(query, {}, { next: { revalidate: 30 } });
 }

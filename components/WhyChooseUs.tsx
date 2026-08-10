@@ -62,10 +62,10 @@ const stats = [
     ),
   },
   {
-    number: 1000,
+    number: 100,
     suffix: "+",
     label: "Produk Tersedia",
-    desc: "Ribuan varian alat kesehatan & lab siap dikirim ke seluruh penjuru Indonesia.",
+    desc: "Ratusan varian alat kesehatan & lab siap dikirim ke seluruh penjuru Indonesia.",
     icon: (
       <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
@@ -103,59 +103,59 @@ const certifications: {
   logo?: string;
   type: "image" | "emblem";
 }[] = [
-  {
-    code: "CDAKB",
-    name: "Cara Distribusi Alat Kesehatan yang Baik",
-    desc: "Standar mutu penyimpanan & pengiriman terjamin",
-    logo: "/images/certifications/cdakb.png",
-    type: "image",
-  },
-  {
-    code: "IDAK",
-    name: "Izin Distribusi Alat Kesehatan",
-    desc: "Legalitas distribusi resmi dari Kemenkes RI",
-    type: "emblem",
-  },
-  {
-    code: "PKP",
-    name: "Penyalur Alat Kesehatan & PKRT",
-    desc: "Izin penyaluran resmi alkes & perbekalan rumah tangga",
-    type: "emblem",
-  },
-  {
-    code: "LKPP",
-    name: "Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah",
-    desc: "Terdaftar sebagai penyedia di sistem pengadaan pemerintah",
-    logo: "/images/certifications/lkpp.png",
-    type: "image",
-  },
-  {
-    code: "E-Katalog",
-    name: "Katalog Elektronik Pemerintah",
-    desc: "Produk tersedia di platform e-procurement nasional",
-    logo: "/images/certifications/ekatalog.png",
-    type: "image",
-  },
-  {
-    code: "TKDN",
-    name: "Tingkat Komponen Dalam Negeri",
-    desc: "Mendukung penggunaan produk dalam negeri",
-    logo: "/images/certifications/tkdn.png",
-    type: "image",
-  },
-  {
-    code: "Bangga Indonesia",
-    name: "Produk Bangga Buatan Indonesia",
-    desc: "Komitmen terhadap produk berkualitas karya anak bangsa",
-    logo: "/images/certifications/bangga-Indo.png",
-    type: "image",
-  },
-];
+    {
+      code: "CDAKB",
+      name: "Cara Distribusi Alat Kesehatan yang Baik",
+      desc: "Standar mutu penyimpanan & pengiriman terjamin",
+      logo: "/images/certifications/cdakb.png",
+      type: "image",
+    },
+    {
+      code: "IDAK",
+      name: "Izin Distribusi Alat Kesehatan",
+      desc: "Legalitas distribusi resmi dari Kemenkes RI",
+      type: "emblem",
+    },
+    {
+      code: "PKP",
+      name: "Penyalur Alat Kesehatan & PKRT",
+      desc: "Izin penyaluran resmi alkes & perbekalan rumah tangga",
+      type: "emblem",
+    },
+    {
+      code: "LKPP",
+      name: "Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah",
+      desc: "Terdaftar sebagai penyedia di sistem pengadaan pemerintah",
+      logo: "/images/certifications/lkpp.png",
+      type: "image",
+    },
+    {
+      code: "E-Katalog",
+      name: "Katalog Elektronik Pemerintah",
+      desc: "Produk tersedia di platform e-procurement nasional",
+      logo: "/images/certifications/ekatalog.png",
+      type: "image",
+    },
+    {
+      code: "TKDN",
+      name: "Tingkat Komponen Dalam Negeri",
+      desc: "Mendukung penggunaan produk dalam negeri",
+      logo: "/images/certifications/tkdn.png",
+      type: "image",
+    },
+    {
+      code: "Bangga Indonesia",
+      name: "Produk Bangga Buatan Indonesia",
+      desc: "Komitmen terhadap produk berkualitas karya anak bangsa",
+      logo: "/images/certifications/bangga-Indo.png",
+      type: "image",
+    },
+  ];
 
 /* ── Emblem SVG for IDAK / PKP ── */
 function CertEmblem({ code }: { code: string }) {
   return (
-    <div className="flex h-40 w-40 items-center justify-center">
+    <div className="flex h-24 w-24 shrink-0 items-center justify-center sm:h-32 sm:w-32 lg:h-40 lg:w-40">
       <svg viewBox="0 0 100 100" className="h-full w-full">
         {/* Outer ring */}
         <circle cx="50" cy="50" r="46" fill="none" stroke="url(#emblemGrad)" strokeWidth="2.5" />
@@ -222,7 +222,7 @@ function StatCard({
       transition={{ duration: 0.5, delay: index * 0.12, ease: "easeOut" }}
       className="group relative"
     >
-      <div className="relative flex h-full flex-col rounded-2xl border border-ink-100 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-brand/20 hover:shadow-xl hover:shadow-brand/10">
+      <div className="relative flex h-full flex-col rounded-2xl border border-ink-100 bg-white p-6 sm:p-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-brand/20 hover:shadow-xl hover:shadow-brand/10">
         {/* Icon */}
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand/10 to-brand-teal/10 text-brand transition-colors duration-300 group-hover:from-brand group-hover:to-brand-teal group-hover:text-white">
           {stat.icon}
@@ -365,7 +365,7 @@ export default function WhyChooseUs() {
           </h3>
         </motion.div>
 
-        <div className="mt-12 grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
           {certifications.map((cert, i) => (
             <motion.div
               key={cert.code}
@@ -373,14 +373,14 @@ export default function WhyChooseUs() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-ink-100 bg-white px-5 py-8 text-center shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-brand/20 hover:shadow-xl hover:shadow-brand/10"
+              className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-ink-100 bg-white px-4 py-6 sm:px-5 sm:py-8 text-center shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-brand/20 hover:shadow-xl hover:shadow-brand/10"
             >
               {/* Top accent line */}
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand via-brand-teal to-brand opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               {/* Logo or Emblem */}
               {cert.type === "image" && cert.logo ? (
-                <div className="flex h-40 w-40 items-center justify-center">
+                <div className="flex h-24 w-24 shrink-0 items-center justify-center sm:h-32 sm:w-32 lg:h-40 lg:w-40">
                   <Image
                     src={cert.logo}
                     alt={cert.code}
@@ -394,17 +394,17 @@ export default function WhyChooseUs() {
               )}
 
               {/* Name */}
-              <p className="mt-5 text-base font-bold text-ink-900">
+              <p className="mt-5 text-sm sm:text-base font-bold text-ink-900">
                 {cert.code}
               </p>
 
               {/* Full name */}
-              <p className="mt-1 text-sm font-medium text-brand">
+              <p className="mt-1 text-xs sm:text-sm font-medium text-brand">
                 {cert.name}
               </p>
 
               {/* Desc */}
-              <p className="mt-2 text-sm leading-relaxed text-ink-500">
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-ink-500">
                 {cert.desc}
               </p>
             </motion.div>

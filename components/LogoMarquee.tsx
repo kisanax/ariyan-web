@@ -1,4 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 // ===== GANTI LOGO DI SINI =====
 // Cukup ganti file di public/images/partners/ dengan nama yang sama,
@@ -18,21 +23,46 @@ const partners = [
 export default function LogoMarquee() {
   // Logo di-duplikat 1x biar looping-nya mulus tanpa "patah"
   const items = [...partners, ...partners];
+  const container = useRef<HTMLDivElement>(null);
+  const marqueeInner = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // GSAP Marquee Animation
+      if (marqueeInner.current) {
+        gsap.to(marqueeInner.current, {
+          xPercent: -50,
+          ease: "none",
+          duration: 35, // Ubah untuk mengatur kecepatan (semakin besar semakin lambat)
+          repeat: -1,
+        });
+      }
+    },
+    { scope: container }
+  );
 
   return (
-    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-      <div className="flex w-max animate-marquee items-center gap-16 sm:gap-24">
+    <div
+      ref={container}
+      className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+    >
+      <div
+        ref={marqueeInner}
+        className="flex w-max items-center gap-10 sm:gap-16"
+      >
         {items.map((partner, index) => (
           <div
             key={`${partner.name}-${index}`}
-            className="flex h-16 w-32 sm:h-20 sm:w-40 shrink-0 items-center justify-center opacity-80 transition-opacity duration-300 hover:opacity-100"
+            // Frame card: Tinggi di-lock, Lebar menyesuaikan isi gambar (w-auto)
+            className="relative flex h-16 sm:h-20 md:h-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white px-6 sm:px-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]"
           >
-            <Image
+            {/* Menggunakan tag img standar agar browser membaca rasio asli gambar, bukan rasio buatan */}
+            <img
               src={partner.src}
               alt={partner.name}
-              width={240}
-              height={120}
-              className="max-h-full max-w-full object-contain"
+              loading="lazy"
+              // Tinggi penuh dikurangi padding internal, lebar fleksibel
+              className="h-[60%] sm:h-[65%] w-auto object-contain"
             />
           </div>
         ))}
