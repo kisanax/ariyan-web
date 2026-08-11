@@ -27,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
     ? urlFor(product.image).url() 
     : "/images/placeholder-product.svg";
 
-  const slugStr = typeof product.slug === 'string' ? product.slug : product.slug?.current || product.name || "default";
+  const slugStr = product.slug || product.name || "default";
   const gradientClass = getGradient(slugStr);
 
   return (
