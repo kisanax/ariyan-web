@@ -49,6 +49,16 @@ export default defineType({
       rows: 3,
     }),
     defineField({
+      name: "nie",
+      title: "Nomor Izin Edar (NIE)",
+      type: "string",
+    }),
+    defineField({
+      name: "tkdn",
+      title: "Nilai TKDN",
+      type: "string",
+    }),
+    defineField({
       name: "specifications",
       title: "Spesifikasi",
       type: "array",

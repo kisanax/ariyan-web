@@ -3,21 +3,42 @@ import Image from "next/image";
 import type { Product } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 
+const gradients = [
+  "bg-gradient-to-br from-sky-200 via-sky-50 to-white/40",
+  "bg-gradient-to-br from-slate-200 via-slate-50 to-white/40",
+  "bg-gradient-to-br from-teal-200 via-teal-50 to-white/40",
+  "bg-gradient-to-br from-blue-200 via-blue-50 to-white/40",
+  "bg-gradient-to-br from-zinc-200 via-zinc-50 to-white/40",
+  "bg-gradient-to-br from-emerald-200 via-emerald-50 to-white/40",
+];
+
+const getGradient = (identifier: string) => {
+  if (!identifier) return gradients[0];
+  let hash = 0;
+  for (let i = 0; i < identifier.length; i++) {
+    hash = identifier.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return gradients[Math.abs(hash) % gradients.length];
+};
+
 export default function ProductCard({ product }: { product: Product }) {
   // Gunakan gambar placeholder jika produk belum memiliki gambar di Sanity
   const imageUrl = product.image 
     ? urlFor(product.image).url() 
     : "/images/placeholder-product.svg";
 
+  const slugStr = typeof product.slug === 'string' ? product.slug : product.slug?.current || product.name || "default";
+  const gradientClass = getGradient(slugStr);
+
   return (
-    <Link href={`/produk/${product.slug}`} className="group block">
-      <div className="aspect-square overflow-hidden rounded-xl bg-ink-50">
+    <Link href={`/produk/${slugStr}`} className="group block h-full flex flex-col">
+      <div className={`aspect-square overflow-hidden rounded-2xl flex items-center justify-center p-6 ${gradientClass}`}>
         <Image
           src={imageUrl}
           alt={product.name}
           width={400}
           height={400}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-lg"
         />
       </div>
       <div className="mt-4 flex flex-col gap-1.5 flex-1 justify-between">

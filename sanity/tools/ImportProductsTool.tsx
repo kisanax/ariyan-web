@@ -19,6 +19,27 @@ export function ImportProductsTool() {
     }
   };
 
+  const handleDownloadTemplate = () => {
+    const templateData = [{
+      "Nama Produk": "Contoh Alat Lab",
+      "Deskripsi": "Deskripsi singkat mengenai produk ini.",
+      "Kategori": "Laboratory",
+      "Brand": "Mindray",
+      "Principal": "PT Principal Indonesia",
+      "Gambar": "https://example.com/image.jpg",
+      "NIE": "AKL 1234567890",
+      "TKDN": "45.50%",
+      "Spesifikasi": "Dimensi: 10x20cm; Berat: 5kg; Daya: 220V",
+      "Fitur": "Mudah digunakan; Layar sentuh; Hemat energi",
+      "Aplikasi / Penggunaan": "Klinik; Rumah Sakit; Puskesmas"
+    }];
+
+    const worksheet = XLSX.utils.json_to_sheet(templateData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Template");
+    XLSX.writeFile(workbook, "Template-Import-Produk.xlsx");
+  };
+
   const handleExport = async () => {
     setIsExporting(true);
     setLogs([]);
@@ -28,6 +49,11 @@ export function ImportProductsTool() {
       const query = `*[_type == "product"]{
         name, 
         shortDescription,
+        nie,
+        tkdn,
+        specifications,
+        features,
+        applications,
         "Kategori": category->name,
         "Brand": brand->name,
         "Principal": principal->name,
@@ -43,7 +69,12 @@ export function ImportProductsTool() {
         "Kategori": p.Kategori || "",
         "Brand": p.Brand || "",
         "Principal": p.Principal || "",
-        "Gambar": p.Gambar || ""
+        "Gambar": p.Gambar || "",
+        "NIE": p.nie || "",
+        "TKDN": p.tkdn || "",
+        "Spesifikasi": p.specifications ? p.specifications.join("; ") : "",
+        "Fitur": p.features ? p.features.join("; ") : "",
+        "Aplikasi / Penggunaan": p.applications ? p.applications.join("; ") : ""
       }));
 
       const worksheet = XLSX.utils.json_to_sheet(exportData);
@@ -99,6 +130,19 @@ export function ImportProductsTool() {
         const brandName = row["Brand"] || row["brand"] || "";
         const princName = row["Principal"] || row["principal"] || "";
         const imageUrl = row["Gambar"] || row["gambar"] || row["Image"] || row["Foto"] || "";
+        
+        const nie = row["NIE"] || row["nie"] || row["Nomor Izin Edar"] || "";
+        const tkdn = row["TKDN"] || row["tkdn"] || row["Nilai TKDN"] || "";
+
+        const parseArray = (val: any) => {
+          if (!val) return undefined;
+          // Pisahkan berdasarkan titik koma (;) atau garis baru (\n)
+          return String(val).split(/[\n;]+/).map(s => s.trim()).filter(Boolean);
+        };
+
+        const specifications = parseArray(row["Spesifikasi"] || row["spesifikasi"]);
+        const features = parseArray(row["Fitur"] || row["fitur"]);
+        const applications = parseArray(row["Aplikasi / Penggunaan"] || row["Aplikasi"] || row["Penggunaan"]);
 
         if (!name) {
           addLog(`Baris ${i + 2}: Diabaikan (Nama Produk kosong)`);
@@ -133,6 +177,11 @@ export function ImportProductsTool() {
             current: slugString,
           },
           shortDescription: shortDescription,
+          ...(nie && { nie: String(nie) }),
+          ...(tkdn && { tkdn: String(tkdn) }),
+          ...(specifications && specifications.length > 0 && { specifications }),
+          ...(features && features.length > 0 && { features }),
+          ...(applications && applications.length > 0 && { applications }),
         };
 
         if (catName && catMap.has(catName.toLowerCase())) {
@@ -187,13 +236,30 @@ export function ImportProductsTool() {
         <Inline space={4}>
           <Card padding={4} radius={2} border style={{ flex: 1 }}>
             <Stack space={4}>
-              <Text size={2} weight="bold">Import Data (Upload)</Text>
-              <input 
-                type="file" 
-                accept=".xlsx, .xls" 
-                onChange={handleFileChange}
-                disabled={isLoading || isExporting}
-              />
+              <Box>
+                <Text size={2} weight="bold">1. Download Template</Text>
+                <Text size={1} muted>Mulai dengan mengunduh format kolom yang benar.</Text>
+                <Box marginTop={2}>
+                  <Button
+                    text="Download Template Excel"
+                    tone="default"
+                    mode="ghost"
+                    onClick={handleDownloadTemplate}
+                    disabled={isLoading || isExporting}
+                  />
+                </Box>
+              </Box>
+              <Box marginTop={3}>
+                <Text size={2} weight="bold">2. Import Data (Upload)</Text>
+                <Box marginTop={2}>
+                  <input 
+                    type="file" 
+                    accept=".xlsx, .xls" 
+                    onChange={handleFileChange}
+                    disabled={isLoading || isExporting}
+                  />
+                </Box>
+              </Box>
               <Box>
                 <Button
                   text={isLoading ? "Sedang Mengimpor..." : "Mulai Import"}

@@ -27,6 +27,8 @@ export type Product = {
   image: any;
   gallery: any[];
   shortDescription: string;
+  nie?: string;
+  tkdn?: string;
   specifications: string[];
   applications: string[];
   brochureUrl?: string;
@@ -100,6 +102,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     gallery,
     "image": gallery[0],
     shortDescription,
+    nie,
+    tkdn,
     specifications,
     features,
     applications,

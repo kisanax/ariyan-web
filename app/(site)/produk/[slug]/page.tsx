@@ -53,6 +53,22 @@ export default async function ProductDetailPage({
             <p className="mt-1 text-sm text-ink-500">
               {product.brand || "No Brand"} · {product.principal || "No Principal"}
             </p>
+            
+            {(product.nie || product.tkdn) && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {product.nie && (
+                  <span className="inline-flex items-center rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                    NIE: {product.nie}
+                  </span>
+                )}
+                {product.tkdn && (
+                  <span className="inline-flex items-center rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/10">
+                    TKDN: {product.tkdn}
+                  </span>
+                )}
+              </div>
+            )}
+
             <p className="mt-6 leading-relaxed text-ink-600">
               {product.shortDescription || "Deskripsi produk belum tersedia."}
             </p>

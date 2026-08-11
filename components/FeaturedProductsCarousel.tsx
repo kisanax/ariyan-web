@@ -6,6 +6,15 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { urlFor } from "@/lib/sanity";
 
+const gradients = [
+  "bg-gradient-to-br from-sky-200 via-sky-50 to-white/40",
+  "bg-gradient-to-br from-slate-200 via-slate-50 to-white/40",
+  "bg-gradient-to-br from-teal-200 via-teal-50 to-white/40",
+  "bg-gradient-to-br from-blue-200 via-blue-50 to-white/40",
+  "bg-gradient-to-br from-zinc-200 via-zinc-50 to-white/40",
+  "bg-gradient-to-br from-emerald-200 via-emerald-50 to-white/40",
+];
+
 export default function FeaturedProductsCarousel({ products }: { products: any[] }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -49,7 +58,7 @@ export default function FeaturedProductsCarousel({ products }: { products: any[]
         className="flex gap-4 sm:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 -mx-6 px-6 lg:-mx-12 lg:px-12"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {products.map((product) => {
+        {products.map((product, index) => {
           const slug = typeof product.slug === 'string' ? product.slug : product.slug?.current || product._id || product.name;
           return (
           <div
@@ -58,7 +67,7 @@ export default function FeaturedProductsCarousel({ products }: { products: any[]
             className="w-[42vw] sm:w-[280px] lg:w-[260px] shrink-0 snap-start"
           >
             <Link href={`/produk/${slug}`} className="group block h-full overflow-hidden rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-ink-100/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(18,115,179,0.15)] flex flex-col">
-              <div className="aspect-[4/3] w-full overflow-hidden bg-ink-100">
+              <div className={`aspect-[4/3] w-full overflow-hidden flex items-center justify-center p-6 ${gradients[index % gradients.length]}`}>
                 <Image
                   src={
                     product.image
@@ -68,7 +77,7 @@ export default function FeaturedProductsCarousel({ products }: { products: any[]
                   alt={product.name}
                   width={600}
                   height={450}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-xl"
                 />
               </div>
               <div className="flex flex-1 flex-col justify-between p-4 sm:p-8">
