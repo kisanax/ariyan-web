@@ -77,10 +77,10 @@ export default defineType({
       of: [{ type: "string" }],
     }),
     defineField({
-      name: "brochure",
-      title: "Brosur (PDF)",
-      type: "file",
-      options: { accept: ".pdf" },
+      name: "brochures",
+      title: "Brosur",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "brochure" }] }],
     }),
     defineField({
       name: "relatedProducts",

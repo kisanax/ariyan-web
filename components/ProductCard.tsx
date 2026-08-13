@@ -3,23 +3,6 @@ import Image from "next/image";
 import type { Product } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 
-const gradients = [
-  "bg-gradient-to-br from-sky-200 via-sky-50 to-white/40",
-  "bg-gradient-to-br from-slate-200 via-slate-50 to-white/40",
-  "bg-gradient-to-br from-teal-200 via-teal-50 to-white/40",
-  "bg-gradient-to-br from-blue-200 via-blue-50 to-white/40",
-  "bg-gradient-to-br from-zinc-200 via-zinc-50 to-white/40",
-  "bg-gradient-to-br from-emerald-200 via-emerald-50 to-white/40",
-];
-
-const getGradient = (identifier: string) => {
-  if (!identifier) return gradients[0];
-  let hash = 0;
-  for (let i = 0; i < identifier.length; i++) {
-    hash = identifier.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return gradients[Math.abs(hash) % gradients.length];
-};
 
 export default function ProductCard({ product }: { product: Product }) {
   // Gunakan gambar placeholder jika produk belum memiliki gambar di Sanity
@@ -28,11 +11,10 @@ export default function ProductCard({ product }: { product: Product }) {
     : "/images/placeholder-product.svg";
 
   const slugStr = product.slug || product.name || "default";
-  const gradientClass = getGradient(slugStr);
 
   return (
     <Link href={`/produk/${slugStr}`} className="group block h-full flex flex-col">
-      <div className={`aspect-square overflow-hidden rounded-2xl flex items-center justify-center p-6 ${gradientClass}`}>
+      <div className="aspect-square overflow-hidden rounded-2xl flex items-center justify-center p-6 bg-gradient-to-br from-[#e4f3f5] to-[#f3f9fa]">
         <Image
           src={imageUrl}
           alt={product.name}

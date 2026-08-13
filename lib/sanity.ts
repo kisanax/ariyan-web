@@ -31,7 +31,15 @@ export type Product = {
   tkdn?: string;
   specifications: string[];
   applications: string[];
-  brochureUrl?: string;
+  brochures?: Brochure[];
+};
+
+export type Brochure = {
+  _id: string;
+  title: string;
+  fileUrl: string;
+  thumbnail?: any;
+  description?: string;
 };
 
 // --- Queries ---
@@ -107,7 +115,13 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     specifications,
     features,
     applications,
-    "brochureUrl": brochure.asset->url
+    "brochures": brochures[]->{
+      _id,
+      title,
+      description,
+      "fileUrl": file.asset->url,
+      thumbnail
+    }
   }`;
 
   return await client.fetch(query, { slug }, { next: { revalidate: 30 } });
@@ -132,5 +146,16 @@ export type Principal = {
 
 export async function getPrincipals(): Promise<Principal[]> {
   const query = `*[_type == "principal"] | order(name asc) { name, "logo": logo.asset->url }`;
+  return await client.fetch(query, {}, { next: { revalidate: 30 } });
+}
+
+export async function getBrochures(): Promise<Brochure[]> {
+  const query = `*[_type == "brochure"] | order(_createdAt desc) {
+    _id,
+    title,
+    description,
+    "fileUrl": file.asset->url,
+    thumbnail
+  }`;
   return await client.fetch(query, {}, { next: { revalidate: 30 } });
 }

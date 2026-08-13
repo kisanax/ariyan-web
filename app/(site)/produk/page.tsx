@@ -2,7 +2,8 @@ import ProductCard from "@/components/ProductCard";
 import StorefrontCategories from "@/components/StorefrontCategories";
 import SearchAndSort from "@/components/SearchAndSort";
 import ProductFilters from "@/components/ProductFilters";
-import { getProducts, getCategories, getBrands, getPrincipals } from "@/lib/sanity";
+import BrochureSection from "@/components/BrochureSection";
+import { getProducts, getCategories, getBrands, getPrincipals, getBrochures } from "@/lib/sanity";
 import Link from "next/link";
 
 export default async function ProdukPage({
@@ -13,7 +14,7 @@ export default async function ProdukPage({
   const { category, brand, principal, q, sort } = await searchParams;
 
   // Fetch data dari Sanity secara paralel
-  const [products, categories, brands, principalsRaw] = await Promise.all([
+  const [products, categories, brands, principalsRaw, brochures] = await Promise.all([
     getProducts({
       category: category,
       brand: brand,
@@ -24,6 +25,7 @@ export default async function ProdukPage({
     getCategories(),
     getBrands(),
     getPrincipals(),
+    getBrochures(),
   ]);
 
   const principals = principalsRaw.map(p => p.name);
@@ -32,7 +34,7 @@ export default async function ProdukPage({
     <div className="bg-[#f8fafd] min-h-screen pb-20">
       {/* 1. Main Hero Banner Slider (Simulasi) */}
       <div className="mx-auto max-w-7xl px-4 pt-6 lg:px-8">
-        <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[32/9] w-full overflow-hidden rounded-2xl bg-gradient-to-r from-brand to-brand-teal shadow-sm">
+        <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[32/9] w-full overflow-hidden rounded-2xl bg-[#1a8b9d] shadow-sm">
           {/* Ini adalah placeholder banner. Nanti bisa diganti dengan Image sungguhan */}
           <div className="absolute inset-0 flex items-center p-6 md:p-12 lg:p-16 z-10">
             <div className="max-w-xl text-white">
@@ -92,45 +94,42 @@ export default async function ProdukPage({
         </div>
       </div>
 
-      {/* 4. Product Grid & Sidebar Filters */}
+      {/* 4. Filter & Product Grid */}
       <div className="mx-auto max-w-7xl px-4 py-8 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          
-          {/* Sidebar Filters */}
-          <div className="w-full lg:w-64 flex-shrink-0">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-ink-100/50 sticky top-24">
-              <ProductFilters categories={categories} brands={brands} principals={principals} />
-            </div>
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            <div className="mb-6">
-              <SearchAndSort total={products.length} />
-            </div>
-
-            {products.length === 0 ? (
-              <div className="rounded-3xl border border-ink-100/60 bg-white py-24 text-center shadow-sm">
-                <div className="mx-auto w-16 h-16 bg-ink-50 rounded-full flex items-center justify-center mb-4">
-                  <svg className="h-8 w-8 text-ink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-                <p className="font-medium text-ink-900 text-lg">Tidak ada produk ditemukan</p>
-                <p className="mt-1 text-ink-500 text-sm">
-                  Coba ubah atau hapus filter kategori untuk melihat hasil lainnya.
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                {products.map((product) => (
-                  <ProductCard key={product.slug} product={product} />
-                ))}
-              </div>
-            )}
-          </div>
+        {/* Filters - Horizontal Minimalist */}
+        <div className="mb-6 bg-white rounded-xl p-3 shadow-sm border border-ink-100/50">
+          <ProductFilters categories={categories} brands={brands} principals={principals} />
         </div>
+
+        {/* Search & Sort */}
+        <div className="mb-6">
+          <SearchAndSort total={products.length} />
+        </div>
+
+        {/* Product Grid - Full Width */}
+        {products.length === 0 ? (
+          <div className="rounded-3xl border border-ink-100/60 bg-white py-24 text-center shadow-sm">
+            <div className="mx-auto w-16 h-16 bg-ink-50 rounded-full flex items-center justify-center mb-4">
+              <svg className="h-8 w-8 text-ink-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <p className="font-medium text-ink-900 text-lg">Tidak ada produk ditemukan</p>
+            <p className="mt-1 text-ink-500 text-sm">
+              Coba ubah atau hapus filter kategori untuk melihat hasil lainnya.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
+            {products.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+        )}
       </div>
+
+      {/* 5. Section Katalog & Brosur */}
+      <BrochureSection brochures={brochures} />
     </div>
   );
 }
