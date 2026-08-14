@@ -48,19 +48,24 @@ buat deploy ke Hostinger Business plan (Web Apps Hosting):
 
 ```
 app/                  → halaman-halaman (App Router)
-  page.tsx             → homepage
-  produk/page.tsx       → listing produk + filter
-  produk/[slug]/page.tsx → detail produk
-components/           → komponen reusable (Header, Footer, ProductCard, dll)
-lib/products.ts       → data produk (sementara dummy)
-sanity/schemaTypes/   → definisi struktur data CMS
+  page.tsx             → homepage (Hero, Trust Logos, Why Choose Us, Services, Partners, Featured Products)
+  produk/page.tsx       → listing katalog produk + filter kategori icon + search & sort + brosur section
+  produk/[slug]/page.tsx → detail produk (galeri, spesifikasi, WhatsApp quote CTA, brosur PDF terkait)
+  contact/page.tsx     → halaman kontak (Google Maps, 4 Info Cards, Form pesan WhatsApp pre-filled)
+  about/page.tsx       → halaman tentang kami & highlight CEO (upcoming)
+  services/page.tsx    → halaman layanan teknisi & workshop (upcoming)
+components/           → komponen UI reusable (Header, Footer, ProductCard, PdfThumbnail, BrochurePreviewModal, dll)
+lib/sanity.ts         → koneksi Sanity client & GROQ queries
+sanity/               → konfigurasi CMS & Excel Import/Export Tool
 ```
 
-## Yang masih perlu dikerjain (belum di scope starter ini)
+## Status Pengerjaan & Next Plan
 
-- Halaman About, Services, Contact (masih placeholder folder kosong)
-- Koneksi beneran ke Sanity (masih dummy data)
-- Fitur "Compare Product" dari customer journey blueprint
-- Halaman "Downloads" (katalog PDF, sertifikat)
-- Logo asli PT Ariyan Medika Utama (belum dipasang, masih teks)
-- Foto produk asli (masih placeholder abu-abu)
+- [x] Homepage & Responsivitas Mobile
+- [x] Listing Katalog Produk (`/produk`) & Detail Produk (`/produk/[slug]`)
+- [x] Integrasi Real Sanity CMS + Excel Import/Export Tool
+- [x] Sistem E-Catalog & Smart Cover Brosur PDF (`PdfThumbnail`)
+- [x] Halaman Kontak Resmi (`/contact`) + WhatsApp Direct Form
+- [ ] Halaman Tentang Kami (`/about`) — Highlight CEO Andriyanto Prabowo & Company Story
+- [ ] Halaman Layanan (`/services`) — Detail Paket Servis & Workshop
+- [ ] Optimasi SEO & Deployment Production Hostinger
