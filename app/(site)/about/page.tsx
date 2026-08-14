@@ -26,7 +26,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#f8fafd] min-h-screen pb-20 overflow-x-hidden">
+    <div className="bg-[#f8fafd] min-h-screen pb-20">
       {/* ─── 1. HERO BANNER ─── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-brand via-brand to-brand-teal py-20 sm:py-28 text-white">
         {/* Background Ornaments */}
