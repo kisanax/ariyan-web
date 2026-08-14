@@ -29,6 +29,14 @@ if (!fs.existsSync(standaloneDir)) {
   process.exit(0);
 }
 
+// Pastikan pdf.worker.min.mjs ada di folder public/
+const workerSource = path.join(rootDir, "node_modules", "pdfjs-dist", "build", "pdf.worker.min.mjs");
+const workerDest = path.join(rootDir, "public", "pdf.worker.min.mjs");
+if (fs.existsSync(workerSource) && !fs.existsSync(workerDest)) {
+  fs.copyFileSync(workerSource, workerDest);
+  console.log("[postbuild] Berhasil menyalin pdf.worker.min.mjs ke folder public/");
+}
+
 copyIfExists(
   path.join(rootDir, "public"),
   path.join(standaloneDir, "public")

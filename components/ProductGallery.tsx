@@ -32,7 +32,7 @@ export default function ProductGallery({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Gambar Utama */}
+      {/* Gambar Utama: padding diperkecil (p-1.5 sm:p-3) agar gambar 1000x1000 tampil proporsional dan jelas */}
       <div className="aspect-square w-full overflow-hidden rounded-2xl bg-white border border-ink-100 shadow-sm relative group">
         <Image
           src={mainImageUrl}
@@ -40,7 +40,7 @@ export default function ProductGallery({
           fill
           priority
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+          className="object-contain p-1.5 sm:p-3 transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 
@@ -53,7 +53,7 @@ export default function ProductGallery({
               <button
                 key={img._key || index}
                 onClick={() => setCurrentIndex(index)}
-                className={`relative flex-shrink-0 h-20 w-20 md:h-24 md:w-24 overflow-hidden rounded-xl border-2 transition-all snap-start ${
+                className={`relative flex-shrink-0 h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 overflow-hidden rounded-xl border-2 transition-all snap-start ${
                   isSelected 
                     ? "border-brand shadow-md scale-100 opacity-100" 
                     : "border-transparent bg-white shadow-sm hover:border-brand/40 opacity-70 hover:opacity-100 hover:scale-95"
@@ -65,7 +65,7 @@ export default function ProductGallery({
                   alt={`Thumbnail ${index + 1}`}
                   fill
                   sizes="100px"
-                  className="object-contain p-2 relative z-10"
+                  className="object-contain p-1 relative z-10"
                 />
               </button>
             );

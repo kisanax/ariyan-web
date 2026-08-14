@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/sanity";
 import ProductGallery from "@/components/ProductGallery";
+import BrochureSection from "@/components/BrochureSection";
 
 export default async function ProductDetailPage({
   params,
@@ -119,6 +120,13 @@ export default async function ProductDetailPage({
           </div>
         </div>
       </div>
+
+      {/* Brosur Terkait Produk */}
+      {product.brochures && product.brochures.length > 0 && (
+        <div className="border-t border-ink-100 bg-[#f8fafd] pt-12">
+          <BrochureSection brochures={product.brochures} />
+        </div>
+      )}
     </div>
   );
 }

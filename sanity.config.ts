@@ -3,6 +3,8 @@ import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { ImportProductsTool } from "./sanity/tools/ImportProductsTool";
 
+import { createBulkActionsTable } from 'sanity-plugin-bulk-actions-table';
+
 export default defineConfig({
   name: "default",
   title: "PT Ariyan Medika Utama",
@@ -12,7 +14,26 @@ export default defineConfig({
   dataset: "production",
   basePath: "/studio",
 
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure: (S, context) => {
+        return S.list()
+          .title('Content')
+          .items([
+            createBulkActionsTable({
+              type: 'product',
+              S,
+              context,
+              title: 'Manajemen Produk (Bulk Actions)',
+            }),
+            S.divider(),
+            ...S.documentTypeListItems().filter(
+              (listItem) => listItem.getId() !== 'product'
+            )
+          ]);
+      }
+    })
+  ],
 
   tools: (prev) => [
     ...prev,

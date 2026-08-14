@@ -60,7 +60,7 @@ export default function FeaturedProductsCarousel({ products }: { products: any[]
             className="w-[42vw] sm:w-[280px] lg:w-[260px] shrink-0 snap-start"
           >
             <Link href={`/produk/${slug}`} className="group block h-full overflow-hidden rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-ink-100/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(18,115,179,0.15)] flex flex-col">
-              <div className="aspect-square w-full overflow-hidden flex items-center justify-center p-4 sm:p-6 bg-gradient-to-br from-[#e4f3f5] to-[#f3f9fa]">
+              <div className="aspect-square w-full overflow-hidden flex items-center justify-center p-1 sm:p-2.5 bg-gradient-to-br from-[#e4f3f5] to-[#f3f9fa]">
                 <Image
                   src={
                     product.image
@@ -70,31 +70,31 @@ export default function FeaturedProductsCarousel({ products }: { products: any[]
                   alt={product.name}
                   width={600}
                   height={450}
-                  className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-xl"
+                  className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-md"
                 />
               </div>
-              <div className="flex flex-1 flex-col p-4 sm:p-6">
+              <div className="flex flex-1 flex-col p-3.5 sm:p-5">
                 <div>
                   {product.category && (
-                    <p className="text-xs font-medium text-brand mb-1 sm:mb-2">
+                    <p className="text-[11px] sm:text-xs font-semibold text-brand mb-1">
                       {product.category}
                     </p>
                   )}
-                  <h3 className="text-sm sm:text-xl font-semibold tracking-tight text-ink-900 line-clamp-2 leading-snug">
+                  <h3 className="text-xs sm:text-lg font-semibold tracking-tight text-ink-900 line-clamp-2 leading-snug">
                     {product.name}
                   </h3>
                 </div>
 
-                <div className="mt-3 sm:mt-4 flex items-center justify-between border-t border-ink-100/60 pt-3 sm:pt-4">
-                  <div className="flex items-center gap-2 h-6 sm:h-7">
+                <div className="mt-2.5 sm:mt-3 flex items-center justify-between border-t border-ink-100/60 pt-2.5 sm:pt-3">
+                  <div className="flex items-center gap-1.5 h-5 sm:h-6">
                     {product.brandLogo && (
-                       <Image src={urlFor(product.brandLogo).url()} alt={product.brand || "Brand"} width={70} height={28} className="h-full w-auto object-contain" />
+                       <Image src={urlFor(product.brandLogo).url()} alt={product.brand || "Brand"} width={60} height={24} className="h-full w-auto object-contain" />
                     )}
                     {!product.brandLogo && (product.brand || product.principal) && (
-                       <p className="text-xs text-ink-500 line-clamp-1">{product.brand || product.principal}</p>
+                       <p className="text-[11px] sm:text-xs text-ink-500 line-clamp-1">{product.brand || product.principal}</p>
                     )}
                   </div>
-                  <span className="text-xs font-medium text-ink-400 group-hover:text-brand transition-colors uppercase tracking-wider">Detail</span>
+                  <span className="text-[11px] sm:text-xs font-medium text-ink-400 group-hover:text-brand transition-colors uppercase tracking-wider">Detail</span>
                 </div>
               </div>
             </Link>
