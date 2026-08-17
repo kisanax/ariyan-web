@@ -174,28 +174,64 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Visi & Tagline Banner */}
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {/* Card Visi */}
-          <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50/80 via-white to-white p-8 shadow-sm">
-            <span className="text-xs font-extrabold tracking-widest text-brand uppercase">Visi Perusahaan</span>
-            <h3 className="mt-3 text-xl sm:text-2xl font-bold text-ink-900 leading-snug">
-              Menjadi Perusahaan Distribusi Berintegritas Dengan Pelayanan Berkualitas
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-600">
-              Mewujudkan ekosistem distribusi alat kesehatan dan laboratorium yang terpercaya, akuntabel, dan memberikan dampak nyata bagi peningkatan mutu layanan medis di Indonesia.
-            </p>
+        {/* Visi, Tagline & Founder Showcase */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-12 items-stretch">
+          {/* Kolom Kiri: Foto Direktur / Founder dengan komitmen kepemimpinan */}
+          <div className="lg:col-span-5 flex flex-col rounded-3xl border border-ink-100 bg-white p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow">
+            {/* Foto Area: 100% jelas & tidak tertutup teks di mobile maupun desktop */}
+            <div className="relative aspect-[4/4] sm:aspect-[4/3] lg:aspect-[4/4.2] w-full overflow-hidden rounded-2xl bg-sky-50">
+              <Image
+                src="/images/direktur stand raise hand-1.jpeg"
+                alt="Andriyanto Prabowo - CEO & Founder PT Ariyan Medika Utama"
+                fill
+                className="object-cover object-top transition-transform duration-500 hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                priority
+              />
+            </div>
+            
+            {/* Info & Kutipan Kepemimpinan di Bawah Foto */}
+            <div className="mt-4 px-2 pb-1">
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand">
+                  Komitmen Kepemimpinan
+                </span>
+                <span className="text-[10px] font-bold text-ink-400">
+                  Founder &amp; CEO
+                </span>
+              </div>
+              <h4 className="text-base font-bold text-ink-900 leading-snug">
+                Andriyanto Prabowo
+              </h4>
+              <p className="mt-2 text-xs text-ink-600 leading-relaxed italic bg-ink-50/70 p-3 rounded-xl border border-ink-100/60">
+                &ldquo;Pelayanan tulus dari hati dan integritas adalah janji utama kami kepada seluruh mitra fasilitas kesehatan di Indonesia.&rdquo;
+              </p>
+            </div>
           </div>
 
-          {/* Card Tagline & Value */}
-          <div className="rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50/80 via-white to-white p-8 shadow-sm">
-            <span className="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">Tagline &amp; Core Values</span>
-            <h3 className="mt-3 text-xl sm:text-2xl font-bold text-ink-900 leading-snug">
-              &ldquo;Service From Heart&rdquo; &amp; Inovasi Tiada Henti
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-600">
-              Memberikan pelayanan tulus dari hati untuk setiap pelanggan, didukung oleh semangat inovasi berkelanjutan dan adaptasi terhadap kebutuhan industri kesehatan modern.
-            </p>
+          {/* Kolom Kanan: Visi & Tagline */}
+          <div className="lg:col-span-7 flex flex-col justify-between gap-6">
+            {/* Card Visi */}
+            <div className="flex-1 rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50/80 via-white to-white p-7 sm:p-8 shadow-sm flex flex-col justify-center">
+              <span className="text-xs font-extrabold tracking-widest text-brand uppercase">Visi Perusahaan</span>
+              <h3 className="mt-3 text-xl sm:text-2xl font-bold text-ink-900 leading-snug">
+                Menjadi Perusahaan Distribusi Berintegritas Dengan Pelayanan Berkualitas
+              </h3>
+              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-ink-600">
+                Mewujudkan ekosistem distribusi alat kesehatan dan laboratorium yang terpercaya, akuntabel, dan memberikan dampak nyata bagi peningkatan mutu layanan medis di Indonesia.
+              </p>
+            </div>
+
+            {/* Card Tagline & Value */}
+            <div className="flex-1 rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50/80 via-white to-white p-7 sm:p-8 shadow-sm flex flex-col justify-center">
+              <span className="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">Tagline &amp; Core Values</span>
+              <h3 className="mt-3 text-xl sm:text-2xl font-bold text-ink-900 leading-snug">
+                &ldquo;Service From Heart&rdquo; &amp; Inovasi Tiada Henti
+              </h3>
+              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-ink-600">
+                Memberikan pelayanan tulus dari hati untuk setiap pelanggan, didukung oleh semangat inovasi berkelanjutan dan adaptasi terhadap kebutuhan industri kesehatan modern.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -371,7 +407,7 @@ export default function AboutPage() {
                   Chat WhatsApp Sales →
                 </a>
               </Button>
-              <Button asChild variant="outline" className="rounded-full h-12 px-8 border-2 border-white/40 text-white hover:bg-white/10 hover:border-white transition-all">
+              <Button asChild className="rounded-full h-12 px-8 border-2 border-white bg-transparent text-white font-bold hover:bg-white hover:text-brand shadow-lg transition-all">
                 <Link href="/produk">Jelajahi Produk Kami</Link>
               </Button>
             </div>

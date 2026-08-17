@@ -108,7 +108,7 @@ export default function Hero() {
       </svg>
 
       {/* Content Container */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl 2xl:max-w-[90rem] px-6 pt-32 pb-20 sm:py-24 lg:px-12 2xl:px-20 lg:py-32">
+      <div className="relative z-10 mx-auto w-full max-w-7xl 2xl:max-w-[90rem] px-6 pt-24 pb-16 sm:pt-28 sm:pb-20 lg:px-12 lg:pt-28 lg:pb-24 2xl:px-20 2xl:py-32">
 
         {/* Left-Aligned Text Content */}
         <div className="max-w-2xl 2xl:max-w-3xl">

@@ -30,16 +30,16 @@ export default function StorefrontCategories({ categories }: { categories: strin
   };
 
   return (
-    <div className="w-full overflow-hidden my-4">
-      <div className="flex gap-2.5 sm:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-2 px-1" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+    <div className="w-full my-2">
+      <div className="flex gap-2.5 sm:gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pt-2 pb-3 px-1" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
         
         {/* Tombol 'Semua' */}
         <Link 
           href="/produk" 
           className={`flex flex-col items-center justify-center min-w-[90px] sm:min-w-[105px] h-[95px] sm:h-[105px] rounded-2xl border transition-all snap-start shadow-xs p-2 ${
             !currentCategory 
-              ? "border-brand bg-brand/5 ring-1 ring-brand/20" 
-              : "border-ink-100 bg-white hover:border-brand/30 hover:bg-ink-50 hover:-translate-y-0.5"
+              ? "border-brand bg-brand/5 ring-1 ring-brand/20 shadow-sm" 
+              : "border-ink-100 bg-white hover:border-brand/40 hover:bg-ink-50/80 hover:-translate-y-0.5 hover:shadow-sm"
           }`}
         >
           <div className={`mb-2 flex items-center justify-center shrink-0 ${!currentCategory ? "text-brand" : "text-ink-300"}`}>
@@ -59,8 +59,8 @@ export default function StorefrontCategories({ categories }: { categories: strin
               href={`/produk?category=${encodeURIComponent(cat)}`}
               className={`flex flex-col items-center justify-center min-w-[90px] sm:min-w-[105px] h-[95px] sm:h-[105px] rounded-2xl border transition-all snap-start shadow-xs p-2 ${
                 isActive 
-                  ? "border-brand bg-brand/5 ring-1 ring-brand/20" 
-                  : "border-ink-100 bg-white hover:border-brand/30 hover:bg-ink-50 hover:-translate-y-0.5"
+                  ? "border-brand bg-brand/5 ring-1 ring-brand/20 shadow-sm" 
+                  : "border-ink-100 bg-white hover:border-brand/40 hover:bg-ink-50/80 hover:-translate-y-0.5 hover:shadow-sm"
               }`}
             >
               <div className={`mb-2 flex items-center justify-center shrink-0 ${isActive ? "text-brand" : "text-[#70b9df]"}`}>

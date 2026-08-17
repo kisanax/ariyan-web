@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   Wrench,
   Gauge,
@@ -411,6 +411,8 @@ export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
+  // Inisialisasi: semua kategori tertutup secara default
+  const [openCategories, setOpenCategories] = useState<Set<Category>>(new Set());
   const pricelistRef = useRef<HTMLDivElement>(null);
 
   /* ── Derived ── */
@@ -429,6 +431,25 @@ export default function ServicesPage() {
     }
     return items;
   }, [activeFilter, searchQuery]);
+
+  // Group filtered items per category
+  const groupedCategories = useMemo(() => {
+    const list: { category: ServiceCategory; items: ServiceItem[] }[] = [];
+    CATEGORIES.forEach((cat) => {
+      const itemsInCat = filteredItems.filter((item) => item.category === cat.id);
+      if (itemsInCat.length > 0) {
+        list.push({ category: cat, items: itemsInCat });
+      }
+    });
+    return list;
+  }, [filteredItems]);
+
+  // Auto-expand categories hanya jika user sedang mencari atau memilih filter kategori tertentu
+  useEffect(() => {
+    if (searchQuery.trim() || activeFilter !== "all") {
+      setOpenCategories(new Set(groupedCategories.map((g) => g.category.id)));
+    }
+  }, [searchQuery, activeFilter, groupedCategories]);
 
   const selectedItems = useMemo(
     () => SERVICE_ITEMS.filter((item) => selectedIds.has(item.id)),
@@ -450,8 +471,26 @@ export default function ServicesPage() {
     });
   }
 
+  function toggleCategory(catId: Category) {
+    setOpenCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(catId)) next.delete(catId);
+      else next.add(catId);
+      return next;
+    });
+  }
+
+  function expandAll() {
+    setOpenCategories(new Set(CATEGORIES.map((c) => c.id)));
+  }
+
+  function collapseAll() {
+    setOpenCategories(new Set());
+  }
+
   function handleCategoryClick(catId: Category) {
     setActiveFilter(catId);
+    setOpenCategories((prev) => new Set([...Array.from(prev), catId]));
     pricelistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -489,7 +528,7 @@ export default function ServicesPage() {
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button
               size="lg"
-              className="bg-white text-brand hover:bg-white/90 shadow-lg shadow-black/10"
+              className="bg-white text-brand hover:bg-white/90 shadow-lg shadow-black/10 font-bold"
               onClick={() => pricelistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
             >
               Lihat Daftar Harga
@@ -498,8 +537,7 @@ export default function ServicesPage() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 hover:border-white/50"
+              className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-brand font-bold shadow-lg transition-all"
             >
               <a
                 href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo, saya ingin berkonsultasi mengenai layanan service & kalibrasi alat kesehatan.")}`}
@@ -615,77 +653,156 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          {/* Item count */}
-          <p className="text-sm text-ink-500 mb-6">
-            Menampilkan <strong className="text-ink-900">{filteredItems.length}</strong> item
-            {selectedIds.size > 0 && (
-              <> · <strong className="text-brand">{selectedIds.size} dipilih</strong></>
-            )}
-          </p>
-
-          {/* Service Item Table-style Cards */}
-          <div className="rounded-2xl border border-ink-300/40 bg-white overflow-hidden shadow-sm">
-            {/* Table header */}
-            <div className="hidden sm:grid sm:grid-cols-[1fr_auto_auto] gap-4 items-center px-6 py-3 bg-ink-100/60 border-b border-ink-300/40 text-xs font-bold text-ink-500 uppercase tracking-wider">
-              <span>Nama Layanan</span>
-              <span className="w-36 text-right">Harga</span>
-              <span className="w-16 text-center">Pilih</span>
+          {/* Expand / Collapse All Controls */}
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm text-ink-500">
+              Menampilkan <strong className="text-ink-900">{filteredItems.length}</strong> item di{" "}
+              <strong className="text-ink-900">{groupedCategories.length}</strong> kategori
+              {selectedIds.size > 0 && (
+                <> · <strong className="text-brand">{selectedIds.size} dipilih</strong></>
+              )}
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={expandAll}
+                className="text-xs font-semibold text-brand hover:underline px-2 py-1"
+              >
+                Buka Semua
+              </button>
+              <span className="text-xs text-ink-300">|</span>
+              <button
+                type="button"
+                onClick={collapseAll}
+                className="text-xs font-semibold text-ink-500 hover:underline px-2 py-1"
+              >
+                Tutup Semua
+              </button>
             </div>
-
-            {/* Rows */}
-            {filteredItems.length === 0 ? (
-              <div className="px-6 py-16 text-center text-ink-500">
-                <Search className="mx-auto h-8 w-8 mb-3 text-ink-300" />
-                <p className="font-semibold">Tidak ditemukan</p>
-                <p className="text-sm mt-1">Coba ubah kata kunci atau filter kategori.</p>
-              </div>
-            ) : (
-              filteredItems.map((item, idx) => {
-                const isSelected = selectedIds.has(item.id);
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => toggleItem(item.id)}
-                    className={`w-full grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-2 sm:gap-4 items-center px-6 py-4 text-left transition-all duration-150 ${
-                      idx < filteredItems.length - 1 ? "border-b border-ink-100" : ""
-                    } ${
-                      isSelected
-                        ? "bg-brand/5"
-                        : "hover:bg-ink-100/50"
-                    }`}
-                  >
-                    {/* Name + Code */}
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-ink-900 leading-snug">
-                        {item.name}
-                      </span>
-                      <span className="text-xs text-ink-500 mt-0.5">
-                        Kode: {item.code}
-                      </span>
-                    </div>
-
-                    {/* Price */}
-                    <span className="w-36 text-sm font-bold text-brand text-left sm:text-right">
-                      {formatRupiah(item.price)}
-                    </span>
-
-                    {/* Checkbox */}
-                    <div className="w-16 flex justify-start sm:justify-center">
-                      <div
-                        className={`flex h-6 w-6 items-center justify-center rounded-full border-2 transition-all duration-200 ${
-                          isSelected
-                            ? "border-brand bg-brand text-white scale-110"
-                            : "border-ink-300 bg-white"
-                        }`}
-                      >
-                        {isSelected && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
-                      </div>
-                    </div>
-                  </button>
-                );
-              })
-            )}
           </div>
+
+          {/* Grouped Category Collapsibles */}
+          {groupedCategories.length === 0 ? (
+            <div className="rounded-2xl border border-ink-300/40 bg-white px-6 py-16 text-center text-ink-500 shadow-sm">
+              <Search className="mx-auto h-8 w-8 mb-3 text-ink-300" />
+              <p className="font-semibold">Tidak ditemukan</p>
+              <p className="text-sm mt-1">Coba ubah kata kunci pencarian atau filter kategori.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {groupedCategories.map((group) => {
+                const isOpen = openCategories.has(group.category.id);
+                const Icon = group.category.icon;
+                const selectedInGroupCount = group.items.filter((i) => selectedIds.has(i.id)).length;
+
+                return (
+                  <div
+                    key={group.category.id}
+                    className="rounded-2xl border border-ink-300/50 bg-white overflow-hidden shadow-sm transition-all duration-200"
+                  >
+                    {/* Collapsible Header */}
+                    <button
+                      type="button"
+                      onClick={() => toggleCategory(group.category.id)}
+                      className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-ink-100/40 transition-colors text-left"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-base font-bold text-ink-900">
+                              {group.category.label}
+                            </h3>
+                            <span className="rounded-full bg-ink-100 px-2.5 py-0.5 text-xs font-semibold text-ink-700">
+                              {group.items.length} item
+                            </span>
+                            {selectedInGroupCount > 0 && (
+                              <span className="rounded-full bg-brand/10 text-brand px-2.5 py-0.5 text-xs font-bold">
+                                {selectedInGroupCount} dipilih
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-ink-500 line-clamp-1 mt-0.5">
+                            {group.category.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 pl-4">
+                        <span className="text-xs font-medium text-ink-500 hidden sm:inline">
+                          {isOpen ? "Sembunyikan" : "Tampilkan"}
+                        </span>
+                        <ChevronDown
+                          className={`h-5 w-5 text-ink-500 transition-transform duration-200 ${
+                            isOpen ? "rotate-180 text-brand" : ""
+                          }`}
+                        />
+                      </div>
+                    </button>
+
+                    {/* Collapsible Body */}
+                    {isOpen && (
+                      <div className="border-t border-ink-100">
+                        {/* Table Header inside Accordion */}
+                        <div className="hidden sm:grid sm:grid-cols-[1fr_auto_auto] gap-4 items-center px-6 py-2.5 bg-ink-100/50 border-b border-ink-100 text-xs font-bold text-ink-500 uppercase tracking-wider">
+                          <span>Nama Layanan & Kode</span>
+                          <span className="w-36 text-right">Harga Satuan</span>
+                          <span className="w-16 text-center">Pilih</span>
+                        </div>
+
+                        {/* Item Rows */}
+                        <div className="divide-y divide-ink-100">
+                          {group.items.map((item) => {
+                            const isSelected = selectedIds.has(item.id);
+                            return (
+                              <button
+                                key={item.id}
+                                type="button"
+                                onClick={() => toggleItem(item.id)}
+                                className={`w-full grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-2 sm:gap-4 items-center px-6 py-3.5 text-left transition-colors ${
+                                  isSelected ? "bg-brand/5" : "hover:bg-ink-100/40"
+                                }`}
+                              >
+                                {/* Name + Code */}
+                                <div className="flex flex-col pr-2">
+                                  <span className="text-sm font-semibold text-ink-900 leading-snug">
+                                    {item.name}
+                                  </span>
+                                  <span className="text-xs text-ink-500 mt-0.5">
+                                    Kode: <span className="font-mono">{item.code}</span>
+                                  </span>
+                                </div>
+
+                                {/* Price */}
+                                <span className="w-36 text-sm font-bold text-brand text-left sm:text-right">
+                                  {formatRupiah(item.price)}
+                                </span>
+
+                                {/* Checkbox */}
+                                <div className="w-16 flex justify-start sm:justify-center">
+                                  <div
+                                    className={`flex h-6 w-6 items-center justify-center rounded-full border-2 transition-all duration-200 ${
+                                      isSelected
+                                        ? "border-brand bg-brand text-white scale-110"
+                                        : "border-ink-300 bg-white"
+                                    }`}
+                                  >
+                                    {isSelected && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+                                  </div>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* Notes */}
           <div className="mt-6 rounded-xl bg-amber-50 border border-amber-200 p-4 text-xs text-amber-800 leading-relaxed">
@@ -770,8 +887,7 @@ export default function ServicesPage() {
                 <Button
                   asChild
                   size="lg"
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 hover:border-white/50"
+                  className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-brand font-bold shadow-lg transition-all"
                 >
                   <a href="tel:02189080715">
                     Telepon: (021) 89080715
