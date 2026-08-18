@@ -79,7 +79,7 @@ export default function Footer() {
 
         <div className="flex items-center justify-between pt-6">
           <p className="text-[0.8rem] text-ink-500 sm:text-sm">
-            © {new Date().getFullYear()} SP-Ariyan  All Right Reserved
+            © {new Date().getFullYear()} Ariyan  All Right Reserved
           </p>
           <div className="flex items-center gap-4 sm:gap-5">
             <a
