@@ -27,8 +27,8 @@ const CONTACT = {
   hours: "Senin – Jumat, 08:00 – 17:00 WIB",
   coverage: "Jakarta, Bogor, Depok, Tangerang, Bekasi, Jawa Barat",
   mapsEmbed:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.5!2d106.7925!3d-6.3848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e97c07ef96a1%3A0x0!2sJl.+Rawakalong+No.59%2C+Grogol%2C+Limo%2C+Depok!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
-  mapsLink: "https://maps.google.com/?q=Jl.+Rawakalong+No.59+Grogol+Limo+Depok",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.1463626708887!2d106.7924247!3d-6.3750989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ef4f2ab96763%3A0xe6e5a8b49b946b9a!2sPT.+ARIYAN+MEDIKA+UTAMA!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
+  mapsLink: "https://www.google.com/maps/search/PT+Ariyan+Medika+Utama+Jl+Rawa+Kalong+No.59+Grogol+Limo+Depok",
   wa: (msg: string) =>
     `https://wa.me/6285719906608?text=${encodeURIComponent(msg)}`,
 };

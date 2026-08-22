@@ -14,13 +14,13 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/produk/${slugStr}`} className="group block h-full flex flex-col">
       {/* Container gambar: padding diperkecil (p-1 / sm:p-2) agar gambar 1000x1000 tampil proporsional dan tidak menciut */}
-      <div className="aspect-square overflow-hidden rounded-2xl flex items-center justify-center p-1 sm:p-2 bg-gradient-to-br from-[#e4f3f5] to-[#f3f9fa]">
+      <div className="aspect-square overflow-hidden rounded-2xl flex items-center justify-center p-1 sm:p-2 bg-white">
         <Image
           src={imageUrl}
           alt={product.name}
           width={400}
           height={400}
-          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
+          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </div>
       <div className="mt-2.5 sm:mt-3 flex flex-col gap-1 flex-1 justify-between">

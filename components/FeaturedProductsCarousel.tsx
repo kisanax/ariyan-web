@@ -60,7 +60,7 @@ export default function FeaturedProductsCarousel({ products }: { products: any[]
             className="w-[42vw] sm:w-[280px] lg:w-[260px] shrink-0 snap-start"
           >
             <Link href={`/produk/${slug}`} className="group block h-full overflow-hidden rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-ink-100/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(18,115,179,0.15)] flex flex-col">
-              <div className="aspect-square w-full overflow-hidden flex items-center justify-center p-1 sm:p-2.5 bg-gradient-to-br from-[#e4f3f5] to-[#f3f9fa]">
+              <div className="aspect-square w-full overflow-hidden flex items-center justify-center p-1 sm:p-2.5 bg-white">
                 <Image
                   src={
                     product.image

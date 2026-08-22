@@ -115,7 +115,7 @@ export function ImportProductsTool() {
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       
-      const rows = XLSX.utils.sheet_to_json<any>(worksheet);
+      const rows = XLSX.utils.sheet_to_json<any>(worksheet, { raw: false, defval: "" });
       addLog(`Berhasil membaca ${rows.length} baris dari Excel.`);
 
       let successCount = 0;
@@ -222,80 +222,225 @@ export function ImportProductsTool() {
   };
 
   return (
-    <Card padding={4} sizing="border">
+    <Card padding={5} sizing="border">
       <Stack space={5}>
+        {/* Header */}
         <Box>
-          <Text size={4} weight="bold">Manajemen Data Produk (Excel)</Text>
-          <Box marginTop={3}>
-            <Text muted>
-              Upload file .xlsx untuk memasukkan produk secara massal, atau unduh seluruh data produk Anda ke dalam format Excel.
+          <Text size={4} weight="bold">
+            Manajemen Data Produk (Excel)
+          </Text>
+          <Box marginTop={2}>
+            <Text size={1} muted>
+              Upload file .xlsx untuk memasukkan produk secara massal, atau unduh
+              seluruh data produk ke dalam format Excel.
             </Text>
           </Box>
         </Box>
 
-        <Inline space={4}>
-          <Card padding={4} radius={2} border style={{ flex: 1 }}>
+        {/* Import & Export Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          {/* Card: Import */}
+          <Card padding={4} radius={2} border>
             <Stack space={4}>
+              {/* Step 1 */}
               <Box>
-                <Text size={2} weight="bold">1. Download Template</Text>
-                <Text size={1} muted>Mulai dengan mengunduh format kolom yang benar.</Text>
-                <Box marginTop={2}>
+                <Inline space={2}>
+                  <div
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: "50%",
+                      background: "#2563eb",
+                      color: "#fff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
+                    1
+                  </div>
+                  <Text size={2} weight="bold">
+                    Download Template
+                  </Text>
+                </Inline>
+                <Box marginTop={2} marginLeft={4}>
+                  <Text size={1} muted>
+                    Mulai dengan mengunduh format kolom yang benar.
+                  </Text>
+                </Box>
+                <Box marginTop={3} marginLeft={4}>
                   <Button
                     text="Download Template Excel"
                     tone="default"
                     mode="ghost"
+                    icon={() => (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                    )}
                     onClick={handleDownloadTemplate}
                     disabled={isLoading || isExporting}
                   />
                 </Box>
               </Box>
-              <Box marginTop={3}>
-                <Text size={2} weight="bold">2. Import Data (Upload)</Text>
-                <Box marginTop={2}>
-                  <input 
-                    type="file" 
-                    accept=".xlsx, .xls" 
-                    onChange={handleFileChange}
-                    disabled={isLoading || isExporting}
+
+              {/* Divider */}
+              <hr style={{ border: "none", borderTop: "1px solid #e5e7eb", margin: 0 }} />
+
+              {/* Step 2 */}
+              <Box>
+                <Inline space={2}>
+                  <div
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: "50%",
+                      background: "#2563eb",
+                      color: "#fff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
+                    2
+                  </div>
+                  <Text size={2} weight="bold">
+                    Import Data (Upload)
+                  </Text>
+                </Inline>
+                <Box marginTop={2} marginLeft={4}>
+                  <Text size={1} muted>
+                    Pilih file Excel (.xlsx) yang sudah diisi sesuai template.
+                  </Text>
+                </Box>
+                <Box marginTop={3} marginLeft={4}>
+                  <label
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "8px 16px",
+                      border: "1px dashed #cbd5e1",
+                      borderRadius: 6,
+                      cursor: isLoading || isExporting ? "not-allowed" : "pointer",
+                      background: "#f8fafc",
+                      fontSize: 13,
+                      color: file ? "#0f172a" : "#64748b",
+                      transition: "border-color 0.2s",
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    {file ? file.name : "Pilih file .xlsx"}
+                    <input
+                      type="file"
+                      accept=".xlsx, .xls"
+                      onChange={handleFileChange}
+                      disabled={isLoading || isExporting}
+                      style={{ display: "none" }}
+                    />
+                  </label>
+                </Box>
+                <Box marginTop={3} marginLeft={4}>
+                  <Button
+                    text={isLoading ? "Sedang Mengimpor..." : "Mulai Import"}
+                    tone="primary"
+                    mode="default"
+                    icon={() => (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="16 16 12 12 8 16" />
+                        <line x1="12" y1="12" x2="12" y2="21" />
+                        <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3" />
+                      </svg>
+                    )}
+                    disabled={!file || isLoading || isExporting}
+                    onClick={handleImport}
                   />
                 </Box>
-              </Box>
-              <Box>
-                <Button
-                  text={isLoading ? "Sedang Mengimpor..." : "Mulai Import"}
-                  tone="primary"
-                  mode="default"
-                  disabled={!file || isLoading || isExporting}
-                  onClick={handleImport}
-                />
               </Box>
             </Stack>
           </Card>
 
-          <Card padding={4} radius={2} border style={{ flex: 1 }}>
+          {/* Card: Export */}
+          <Card padding={4} radius={2} border>
             <Stack space={4}>
-              <Text size={2} weight="bold">Export Data (Download)</Text>
-              <Text size={1} muted>Unduh seluruh data produk saat ini menjadi file Excel (.xlsx).</Text>
-              <Box>
+              <Inline space={2}>
+                <div
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: "50%",
+                    background: "#16a34a",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}
+                >
+                  ↓
+                </div>
+                <Text size={2} weight="bold">
+                  Export Data (Download)
+                </Text>
+              </Inline>
+              <Box marginLeft={4}>
+                <Text size={1} muted>
+                  Unduh seluruh data produk saat ini menjadi file Excel (.xlsx).
+                  Berguna untuk backup atau edit massal.
+                </Text>
+              </Box>
+              <Box marginLeft={4}>
                 <Button
                   text={isExporting ? "Menyiapkan File..." : "Download Excel"}
                   tone="positive"
                   mode="default"
+                  icon={() => (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  )}
                   disabled={isLoading || isExporting}
                   onClick={handleExport}
                 />
               </Box>
             </Stack>
           </Card>
-        </Inline>
+        </div>
 
+        {/* Log Proses */}
         {logs.length > 0 && (
-          <Box marginTop={4}>
-            <Text size={2} weight="bold">Log Proses:</Text>
-            <Card padding={3} marginTop={2} radius={2} tone="transparent" border style={{ maxHeight: "300px", overflowY: "auto" }}>
+          <Box>
+            <Text size={2} weight="bold">
+              Log Proses:
+            </Text>
+            <Card
+              padding={3}
+              marginTop={2}
+              radius={2}
+              tone="transparent"
+              border
+              style={{ maxHeight: 300, overflowY: "auto" }}
+            >
               <Stack space={2}>
                 {logs.map((log, index) => (
-                  <Code key={index} size={1}>{log}</Code>
+                  <Code key={index} size={1}>
+                    {log}
+                  </Code>
                 ))}
               </Stack>
             </Card>

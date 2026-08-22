@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductBySlug } from "@/lib/sanity";
+import { getProductBySlug, getRelatedProducts } from "@/lib/sanity";
 import ProductGallery from "@/components/ProductGallery";
+import ProductCard from "@/components/ProductCard";
 import BrochureSection from "@/components/BrochureSection";
 
 export default async function ProductDetailPage({
@@ -13,6 +14,10 @@ export default async function ProductDetailPage({
   const product = await getProductBySlug(slug);
   
   if (!product) return notFound();
+
+  const relatedProducts = product.category
+    ? await getRelatedProducts(slug, product.category, 4)
+    : [];
 
   const waMessage = encodeURIComponent(
     `Halo, saya ingin menanyakan ketersediaan dan penawaran harga untuk produk: ${product.name}`
@@ -125,6 +130,38 @@ export default async function ProductDetailPage({
       {product.brochures && product.brochures.length > 0 && (
         <div className="border-t border-ink-100 bg-[#f8fafd] pt-12">
           <BrochureSection brochures={product.brochures} />
+        </div>
+      )}
+
+      {/* Produk Terkait */}
+      {relatedProducts.length > 0 && (
+        <div className="border-t border-ink-100 bg-white">
+          <div className="mx-auto max-w-6xl px-6 py-14 lg:px-12">
+            <div className="mb-8 flex items-end justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand">
+                  Rekomendasi
+                </p>
+                <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-900">
+                  Produk Terkait
+                </h2>
+              </div>
+              <Link
+                href={`/produk?category=${encodeURIComponent(product.category || "")}`}
+                className="hidden text-sm font-medium text-brand transition-colors hover:text-brand/80 sm:inline-flex items-center gap-1"
+              >
+                Lihat semua
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.slug} product={p} />
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -127,6 +127,31 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   return await client.fetch(query, { slug }, { next: { revalidate: 30 } });
 }
 
+export async function getRelatedProducts(
+  currentSlug: string,
+  category: string,
+  limit: number = 4
+): Promise<Product[]> {
+  const query = `*[_type == "product" && slug.current != $currentSlug && category->name == $category] | order(_createdAt desc) [0...$limit] {
+    _id,
+    "slug": slug.current,
+    name,
+    "category": category->name,
+    "brand": brand->name,
+    "brandLogo": brand->logo,
+    "principal": principal->name,
+    "principalLogo": principal->logo,
+    "image": gallery[0],
+    shortDescription
+  }`;
+
+  return await client.fetch(
+    query,
+    { currentSlug, category, limit },
+    { next: { revalidate: 30 } }
+  );
+}
+
 export async function getCategories(): Promise<string[]> {
   const query = `*[_type == "category"] | order(name asc) { name }`;
   const result = await client.fetch(query, {}, { next: { revalidate: 30 } });
