@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import "./globals.css";
 
 const nunito = Nunito({
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="id" className={nunito.variable} suppressHydrationWarning>
       <body className="font-sans" suppressHydrationWarning>
         {children}
+        <GoogleAnalytics gaId="G-KX4QQPJH10" />
       </body>
     </html>
   );
