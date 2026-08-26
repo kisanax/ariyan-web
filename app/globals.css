@@ -27,6 +27,12 @@
     --ring: 202 82% 39%;
     --radius: 0.75rem;
   }
+
+  /* Prevent lucide icons from growing infinitely if Tailwind utility classes fail to load */
+  svg.lucide {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 html {
