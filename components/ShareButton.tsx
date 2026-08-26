@@ -19,7 +19,7 @@ export default function ShareButton({
 
   useEffect(() => {
     setShareUrl(url || window.location.href);
-    if (typeof navigator !== "undefined" && navigator.share) {
+    if (typeof navigator !== "undefined" && "share" in navigator) {
       setIsNativeShareAvailable(true);
     }
   }, [url]);
