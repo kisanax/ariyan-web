@@ -1,5 +1,6 @@
 "use client";
 
+import ShareButton from "@/components/ShareButton";
 import { Brochure } from "@/lib/sanity";
 import { useEffect, useCallback, useState } from "react";
 import {
@@ -60,6 +61,9 @@ export default function BrochurePreviewModal({
 
   if (!current) return null;
 
+  // We construct a fully qualified URL for sharing if it's a relative path, but Sanity urls are already absolute.
+  const shareUrl = current.fileUrl;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6">
       {/* Backdrop */}
@@ -87,12 +91,20 @@ export default function BrochurePreviewModal({
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="hidden sm:block">
+              <ShareButton 
+                title={current.title} 
+                text={`Lihat brosur ${current.title} dari Ariyan Medika Utama:`} 
+                url={shareUrl}
+              />
+            </div>
+            
             {/* Open in new tab / Fullscreen */}
             <a
               href={current.fileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-lg border border-ink-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-ink-700 shadow-sm transition-colors hover:bg-ink-50 active:scale-95 shrink-0"
+              className="inline-flex items-center gap-1 rounded-lg border border-ink-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-ink-700 shadow-sm transition-colors hover:bg-ink-50 active:scale-95 shrink-0 h-[34px] sm:h-[38px]"
               title="Buka PDF di tab baru"
             >
               <ExternalLink size={14} className="w-3.5 h-3.5 shrink-0" />
@@ -128,15 +140,24 @@ export default function BrochurePreviewModal({
             <Smartphone size={14} className="w-3.5 h-3.5 shrink-0 text-brand" />
             Tampilan Dokumen PDF
           </span>
-          <a
-            href={current.fileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-bold text-xs bg-brand text-white px-2.5 py-1 rounded-md shadow-xs active:scale-95 shrink-0 ml-2"
-          >
-            <Eye size={12} className="w-3 h-3 shrink-0" />
-            Buka PDF ↗
-          </a>
+          <div className="flex items-center gap-2">
+            <div className="scale-90 origin-right">
+              <ShareButton 
+                title={current.title} 
+                text={`Lihat brosur ${current.title} dari Ariyan Medika Utama:`} 
+                url={shareUrl}
+              />
+            </div>
+            <a
+              href={current.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-bold text-xs bg-brand text-white px-2.5 py-1.5 rounded-md shadow-xs active:scale-95 shrink-0"
+            >
+              <Eye size={12} className="w-3 h-3 shrink-0" />
+              Buka PDF ↗
+            </a>
+          </div>
         </div>
 
         {/* PDF Viewer Container */}

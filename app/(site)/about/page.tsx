@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RevealSection from "@/components/RevealSection";
 import OurJourneySlider from "@/components/OurJourneySlider";
+import ScrollToAnchor from "@/components/ScrollToAnchor";
 import { Button } from "@/components/ui/button";
 import {
   ShieldCheck,
@@ -16,7 +17,9 @@ import {
   PackageCheck,
   TrendingUp,
   ArrowRight,
+  ZoomIn,
 } from "lucide-react";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
 export const metadata = {
   title: "Tentang Kami | PT Ariyan Medika Utama",
@@ -27,6 +30,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="bg-[#f8fafd] min-h-screen pb-20">
+      <ScrollToAnchor />
       {/* ─── 1. HERO BANNER ─── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-brand via-brand to-brand-teal py-20 sm:py-28 text-white">
         {/* Background Ornaments */}
@@ -189,7 +193,7 @@ export default function AboutPage() {
                 priority
               />
             </div>
-            
+
             {/* Info & Kutipan Kepemimpinan di Bawah Foto */}
             <div className="mt-4 px-2 pb-1">
               <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -353,7 +357,14 @@ export default function AboutPage() {
               </li>
               <li className="flex items-center justify-between p-3 rounded-xl bg-ink-50/70 border border-ink-100">
                 <span className="font-semibold">Izin Edar &amp; Salur:</span>
-                <span className="font-bold text-brand-teal">IDAK &amp; PKP</span>
+                <span className="font-bold text-brand-teal">IDAK </span>
+              </li>
+              <li className="flex items-center justify-between p-3 rounded-xl bg-ink-50/70 border border-ink-100">
+                <span className="font-semibold">Kebijakan:</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-ink-900">Kebijakan Privasi</span>
+                  <Link href="/privacy" className="text-xs bg-white text-ink-700 border border-ink-200 px-2 py-1 rounded hover:bg-ink-100 transition-colors">Baca Kebijakan</Link>
+                </div>
               </li>
             </ul>
           </div>
@@ -387,7 +398,101 @@ export default function AboutPage() {
         </div>
       </RevealSection>
 
-      {/* ─── 7. BOTTOM CTA STRIP ─── */}
+      {/* ─── 7. PREVIEW DOKUMEN LEGALITAS ─── */}
+      <RevealSection className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div id="preview-dokumen" className="text-center max-w-3xl mx-auto mb-10 scroll-mt-24">
+          <h2 className="text-3xl font-extrabold text-ink-900 sm:text-4xl tracking-tight">
+            Dokumen Legalitas &amp; Sertifikasi
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-ink-500">
+            Preview sertifikat resmi CDAKB dan IDAK dari Kementerian Kesehatan RI yang menjamin standar operasional kami.
+          </p>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-2">
+          {/* CDAKB Preview */}
+          <div className="rounded-3xl border border-ink-100 bg-white p-6 shadow-sm flex flex-col h-[500px] sm:h-[600px] select-none group">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-lg font-bold text-brand flex items-center gap-2">
+                <ShieldCheck size={20} className="w-5 h-5 shrink-0" />
+                Sertifikat CDAKB
+              </h4>
+            </div>
+            
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative flex-1 w-full rounded-2xl overflow-hidden border border-ink-100 bg-ink-50/50 cursor-zoom-in group-hover:border-brand/50 transition-colors">
+                  <Image
+                    src="/docs/cdakb.png"
+                    alt="Preview Sertifikat CDAKB Kemenkes RI"
+                    fill
+                    className="object-contain p-2"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/5 transition-opacity">
+                    <div className="bg-white/90 text-brand px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold shadow-sm backdrop-blur-sm">
+                      <ZoomIn size={14} /> Klik untuk Perbesar
+                    </div>
+                  </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-[90vw] w-[800px] h-[90vh] bg-transparent border-0 shadow-none p-0 flex items-center justify-center">
+                <div className="relative w-full h-full bg-white rounded-xl overflow-hidden p-2">
+                  <Image
+                    src="/docs/cdakb.png"
+                    alt="Sertifikat CDAKB Kemenkes RI"
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          {/* IDAK Preview */}
+          <div className="rounded-3xl border border-ink-100 bg-white p-6 shadow-sm flex flex-col h-[500px] sm:h-[600px] select-none group">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-lg font-bold text-brand-teal flex items-center gap-2">
+                <ShieldCheck size={20} className="w-5 h-5 shrink-0" />
+                Sertifikat IDAK
+              </h4>
+            </div>
+            
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative flex-1 w-full rounded-2xl overflow-hidden border border-ink-100 bg-ink-50/50 cursor-zoom-in group-hover:border-brand-teal/50 transition-colors">
+                  <Image
+                    src="/docs/idak.png"
+                    alt="Preview Sertifikat IDAK Kemenkes RI"
+                    fill
+                    className="object-contain p-2"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/5 transition-opacity">
+                    <div className="bg-white/90 text-brand-teal px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold shadow-sm backdrop-blur-sm">
+                      <ZoomIn size={14} /> Klik untuk Perbesar
+                    </div>
+                  </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-[90vw] w-[800px] h-[90vh] bg-transparent border-0 shadow-none p-0 flex items-center justify-center">
+                <div className="relative w-full h-full bg-white rounded-xl overflow-hidden p-2">
+                  <Image
+                    src="/docs/idak.png"
+                    alt="Sertifikat IDAK Kemenkes RI"
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
+      </RevealSection>
+
+      {/* ─── 8. BOTTOM CTA STRIP ─── */}
       <RevealSection className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand via-brand to-brand-teal p-8 sm:p-12 text-center text-white shadow-xl shadow-brand/25">
           <div className="relative z-10 max-w-2xl mx-auto">

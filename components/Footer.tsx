@@ -10,8 +10,8 @@ const companyLinks = [
 ];
 
 const legalLinks = [
-  { label: "IDAK", href: "/downloads" },
-  { label: "CDAKB", href: "/downloads" },
+  { label: "IDAK", href: "/about#preview-dokumen" },
+  { label: "CDAKB", href: "/about#preview-dokumen" },
   { label: "Kebijakan Privasi", href: "/privacy" },
 ];
 
