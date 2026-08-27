@@ -162,10 +162,32 @@ export default function BrochurePreviewModal({
 
         {/* PDF Viewer Container */}
         <div className="relative flex-1 bg-slate-100 min-h-0 w-full overflow-hidden flex flex-col">
+          
+          {/* Mobile Fallback (No iframe to prevent binary code display) */}
+          <div className="absolute inset-0 flex sm:hidden flex-col items-center justify-center p-6 text-center z-0 bg-white">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand/10 text-brand">
+              <FileText size={32} />
+            </div>
+            <h4 className="text-lg font-bold text-ink-900 mb-2">Dokumen Tersedia</h4>
+            <p className="text-ink-500 text-sm mb-6 max-w-xs">
+              Browser ponsel Anda mungkin tidak mendukung tampilan PDF langsung. Silakan buka dokumen di tab baru.
+            </p>
+            <a
+              href={current.fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-bold text-white shadow-md active:scale-95"
+            >
+              <Eye size={18} />
+              Baca Dokumen Lengkap
+            </a>
+          </div>
+
+          {/* Desktop Iframe */}
           <iframe
             key={current.fileUrl}
             src={`${current.fileUrl}#toolbar=1&navpanes=0&view=FitH`}
-            className="h-full w-full border-0 bg-white"
+            className="relative z-10 hidden sm:block h-full w-full border-0 bg-white"
             title={current.title}
             onLoad={() => setIframeLoaded(true)}
           />
