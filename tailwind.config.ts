@@ -91,8 +91,8 @@ const config: Config = {
         },
       },
       animation: {
-        marquee: "marquee 28s linear infinite",
-        "marquee-reverse": "marquee-reverse 28s linear infinite",
+        marquee: "marquee 60s linear infinite",
+        "marquee-reverse": "marquee-reverse 60s linear infinite",
         "border-spin": "border-spin 3s linear infinite",
       },
       spacing: {
