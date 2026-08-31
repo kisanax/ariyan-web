@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useMemo, useRef, useEffect } from "react";
 import {
   Wrench,
@@ -564,6 +565,22 @@ export default function ServicesPage() {
                 Solusi lengkap untuk kebutuhan kalibrasi, pengujian, perawatan, dan service
                 alat kesehatan &amp; laboratorium Anda.
               </p>
+              <div className="mt-6 flex items-center justify-center gap-8">
+                <Image
+                  src="/images/certifications/elvakal.jpg"
+                  alt="Elvakal — Lab Kalibrasi & Pengujian"
+                  width={130}
+                  height={52}
+                  className="h-11 w-auto object-contain"
+                />
+                <Image
+                  src="/images/certifications/KAN.jpg"
+                  alt="KAN — Komite Akreditasi Nasional"
+                  width={130}
+                  height={52}
+                  className="h-11 w-auto object-contain"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

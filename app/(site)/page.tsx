@@ -71,6 +71,28 @@ export default async function HomePage() {
               maintenance, perbaikan, dan kalibrasi alat-alat laboratorium di
               institusi kesehatan Anda.
             </p>
+
+            {/* Accreditation logos */}
+            <div className="mt-8 flex items-center justify-center gap-8">
+              <div className="flex items-center rounded-xl border border-ink-100 bg-white px-5 py-3 shadow-sm">
+                <Image
+                  src="/images/certifications/elvakal.jpg"
+                  alt="Elvakal — Lab Kalibrasi & Pengujian"
+                  width={120}
+                  height={48}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+              <div className="flex items-center rounded-xl border border-ink-100 bg-white px-5 py-3 shadow-sm">
+                <Image
+                  src="/images/certifications/KAN.jpg"
+                  alt="KAN — Komite Akreditasi Nasional"
+                  width={120}
+                  height={48}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+            </div>
           </div>
           <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
             {[
