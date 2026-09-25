@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -57,6 +58,7 @@ export default function MobileNav() {
   }, [pathname]);
 
   return (
+    <>
     <div className="ml-2 shrink-0 lg:hidden">
       {/* ─── 1. Hamburger / Close Trigger Button ─── */}
       <button
@@ -72,26 +74,17 @@ export default function MobileNav() {
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
+    </div>
 
       {/* ─── 2. Full-Screen Backdrop & Slide-Down Menu Overlay ─── */}
-      <div
-        className={cn(
-          "fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto px-4 pt-2 pb-6 transition-all duration-300 ease-out flex flex-col justify-between",
-          isOpen
-            ? "opacity-100 pointer-events-auto bg-slate-950/60 backdrop-blur-xl"
-            : "opacity-0 pointer-events-none bg-transparent"
-        )}
+      {isOpen && createPortal(<div
+        className="fixed inset-x-0 bottom-0 top-[76px] z-[60] flex flex-col overflow-y-auto bg-slate-950/60 px-4 pb-6 pt-2 backdrop-blur-xl sm:top-[80px] lg:hidden"
         onClick={() => setIsOpen(false)}
       >
         {/* Menu Container Card */}
         <div
           onClick={(e) => e.stopPropagation()}
-          className={cn(
-            "w-full max-w-md mx-auto rounded-[28px] bg-white/95 backdrop-blur-2xl border border-white/60 p-5 shadow-2xl transition-all duration-300 ease-out",
-            isOpen
-              ? "translate-y-0 scale-100 opacity-100"
-              : "-translate-y-6 scale-95 opacity-0"
-          )}
+          className="mx-auto w-full max-w-md rounded-[28px] border border-white/60 bg-white/95 p-5 shadow-2xl backdrop-blur-2xl"
         >
           {/* Navigation Links */}
           <nav className="flex flex-col gap-1.5">
@@ -215,7 +208,7 @@ export default function MobileNav() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div>, document.body)}
+    </>
   );
 }
