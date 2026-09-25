@@ -14,6 +14,7 @@ import {
   MessageCircle,
   ShieldCheck,
   ChevronRight,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -22,12 +23,19 @@ const navItems = [
   { label: "Beranda", href: "/", icon: Home, desc: "Halaman utama & keunggulan" },
   { label: "Tentang Kami", href: "/about", icon: Building2, desc: "Profil, visi & komitmen" },
   { label: "Katalog Produk", href: "/produk", icon: Package, desc: "Alat lab, alkes & BMHP" },
-  { label: "Layanan Service", href: "/services", icon: Wrench, desc: "Kalibrasi & uji fungsi" },
+  { label: "Layanan", href: "/services", icon: Wrench, desc: "Service, LIS & SIM RS" },
   { label: "Kontak & Lokasi", href: "/contact", icon: Phone, desc: "Alamat & WhatsApp sales" },
+];
+
+const serviceLinks = [
+  { label: "Service & Kalibrasi", href: "/services/service-kalibrasi" },
+  { label: "Laboratory Information System", href: "/services/lis" },
+  { label: "SIM RS", href: "/services/sim-rs" },
 ];
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const pathname = usePathname();
 
   // Kunci scroll body saat menu terbuka
@@ -45,6 +53,7 @@ export default function MobileNav() {
   // Tutup menu otomatis jika rute berpindah
   useEffect(() => {
     setIsOpen(false);
+    setServicesOpen(false);
   }, [pathname]);
 
   return (
@@ -67,7 +76,7 @@ export default function MobileNav() {
       {/* ─── 2. Full-Screen Backdrop & Slide-Down Menu Overlay ─── */}
       <div
         className={cn(
-          "fixed inset-x-0 top-[68px] bottom-0 z-40 px-4 pt-2 pb-6 transition-all duration-300 ease-out flex flex-col justify-between",
+          "fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto px-4 pt-2 pb-6 transition-all duration-300 ease-out flex flex-col justify-between",
           isOpen
             ? "opacity-100 pointer-events-auto bg-slate-950/60 backdrop-blur-xl"
             : "opacity-0 pointer-events-none bg-transparent"
@@ -92,6 +101,38 @@ export default function MobileNav() {
                 item.href === "/"
                   ? pathname === "/"
                   : pathname.startsWith(item.href);
+
+              if (item.label === "Layanan") {
+                return (
+                  <div key={item.href}>
+                    <button
+                      type="button"
+                      onClick={() => setServicesOpen((open) => !open)}
+                      aria-expanded={servicesOpen}
+                      aria-controls="mobile-services-submenu"
+                      className={cn(
+                        "group flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left transition-all duration-200",
+                        isActive ? "bg-brand text-white" : "text-ink-800 hover:bg-ink-100/70"
+                      )}
+                    >
+                      <span className="flex items-center gap-3.5">
+                        <span className={cn("flex h-10 w-10 items-center justify-center rounded-xl", isActive ? "bg-white/20" : "bg-ink-100 text-ink-600")}><Wrench className="h-5 w-5" /></span>
+                        <span className="flex flex-col"><span className="text-[15px] font-bold">Layanan</span><span className={cn("mt-0.5 text-[11px]", isActive ? "text-white/80" : "text-ink-500")}>Service, LIS &amp; SIM RS</span></span>
+                      </span>
+                      <ChevronDown className={cn("h-4 w-4 transition-transform", servicesOpen && "rotate-180")} />
+                    </button>
+                    {servicesOpen && (
+                      <div id="mobile-services-submenu" className="ml-14 mt-1 flex flex-col gap-1 border-l-2 border-brand/20 pl-3">
+                        {serviceLinks.map((service) => (
+                          <Link key={service.href} href={service.href} onClick={() => setIsOpen(false)} className={cn("rounded-xl px-3 py-2.5 text-sm font-medium", pathname === service.href ? "bg-brand/10 text-brand" : "text-ink-700 hover:bg-ink-100/70")}>
+                            {service.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
 
               return (
                 <Link

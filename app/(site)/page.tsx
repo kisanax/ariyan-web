@@ -61,15 +61,14 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-6xl px-6 lg:px-12">
           <div className="text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-brand">
-              Bengkel Workshop Siap Melayani
+              Solusi Alat &amp; Sistem Informasi
             </p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink-900 lg:text-4xl">
               Layanan Kami
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-ink-500">
-              Tim teknisi berpengalaman &amp; bersertifikat siap membantu
-              maintenance, perbaikan, dan kalibrasi alat-alat laboratorium di
-              institusi kesehatan Anda.
+              Dari service dan kalibrasi alat hingga sistem informasi laboratorium
+              dan rumah sakit, kami membantu kebutuhan operasional fasilitas kesehatan Anda.
             </p>
 
             {/* Accreditation logos */}
@@ -144,6 +143,19 @@ export default async function HomePage() {
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              { title: "Service & Kalibrasi", description: "Perawatan, perbaikan, pengujian, dan kalibrasi alat kesehatan.", href: "/services/service-kalibrasi" },
+              { title: "Laboratory Information System", description: "Integrasi alat, sampel, hasil, dan laporan laboratorium.", href: "/services/lis" },
+              { title: "SIM RS", description: "Sistem informasi untuk operasional rumah sakit yang terintegrasi.", href: "/services/sim-rs" },
+            ].map((service) => (
+              <Link key={service.href} href={service.href} className="group rounded-2xl border border-sky-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand/30 hover:shadow-lg">
+                <h3 className="font-bold text-ink-900 group-hover:text-brand">{service.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-ink-500">{service.description}</p>
+                <span className="mt-4 inline-block text-sm font-semibold text-brand">Lihat layanan →</span>
+              </Link>
             ))}
           </div>
           <div className="mt-12 text-center">

@@ -5,7 +5,9 @@ const companyLinks = [
   { label: "Beranda", href: "/" },
   { label: "Tentang Kami", href: "/about" },
   { label: "Produk", href: "/produk" },
-  { label: "Layanan", href: "/services" },
+  { label: "Service & Kalibrasi", href: "/services/service-kalibrasi" },
+  { label: "Laboratory Information System", href: "/services/lis" },
+  { label: "SIM RS", href: "/services/sim-rs" },
   { label: "Kontak", href: "/contact" },
 ];
 

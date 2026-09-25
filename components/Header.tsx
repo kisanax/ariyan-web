@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import MobileNav from "@/components/MobileNav";
 import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 const navItems = [
   { label: "Beranda", href: "/" },
@@ -13,6 +14,12 @@ const navItems = [
   { label: "Produk", href: "/produk" },
   { label: "Layanan", href: "/services" },
   { label: "Kontak", href: "/contact" },
+];
+
+const serviceLinks = [
+  { label: "Service & Kalibrasi", href: "/services/service-kalibrasi" },
+  { label: "Laboratory Information System", href: "/services/lis" },
+  { label: "SIM RS", href: "/services/sim-rs" },
 ];
 
 export default function Header() {
@@ -52,15 +59,26 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="hidden gap-7 lg:gap-9 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-[0.925rem] font-medium text-ink-700/85 transition-colors hover:text-brand"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.label === "Layanan" ? (
+              <details key={item.href} className="group relative">
+                <summary className="flex cursor-pointer list-none items-center gap-1 text-[0.925rem] font-medium text-ink-700/85 transition-colors hover:text-brand focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand [&::-webkit-details-marker]:hidden">
+                  Layanan <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="absolute left-1/2 top-full z-50 mt-5 w-72 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl">
+                  {serviceLinks.map((service) => (
+                    <Link key={service.href} href={service.href} onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")} className="block rounded-xl px-4 py-3 text-sm font-medium text-ink-800 transition-colors hover:bg-sky-50 hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand">
+                      {service.label}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+            ) : (
+              <Link key={item.href} href={item.href} className="text-[0.925rem] font-medium text-ink-700/85 transition-colors hover:text-brand">
+                {item.label}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Button */}
