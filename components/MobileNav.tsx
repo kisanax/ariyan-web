@@ -57,14 +57,14 @@ export default function MobileNav() {
   }, [pathname]);
 
   return (
-    <div className="md:hidden">
+    <div className="ml-2 shrink-0 lg:hidden">
       {/* ─── 1. Hamburger / Close Trigger Button ─── */}
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={isOpen ? "Tutup menu" : "Buka menu"}
         className={cn(
-          "relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300",
+          "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all duration-300",
           isOpen
             ? "bg-slate-900 text-white shadow-md rotate-90"
             : "bg-ink-100/80 text-ink-900 hover:bg-ink-200/80"

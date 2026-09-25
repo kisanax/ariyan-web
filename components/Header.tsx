@@ -35,30 +35,30 @@ export default function Header() {
   }, []);
 
   return (
-    <div className="fixed inset-x-0 top-3 md:top-4 z-50 flex justify-center w-full px-4 md:px-8">
+    <div className="fixed inset-x-0 top-3 md:top-4 z-50 flex justify-center w-full px-2 sm:px-4 lg:px-8">
       <header
         className={cn(
-          "flex w-full max-w-7xl items-center justify-between rounded-2xl border border-white/50 bg-white/80 px-4 py-2.5 sm:px-6 sm:py-3 shadow-lg shadow-black/5 backdrop-blur-xl transition-all duration-300 ease-out",
+          "flex w-full max-w-7xl items-center justify-between gap-2 rounded-2xl border border-white/50 bg-white/80 px-3 py-2.5 sm:px-6 sm:py-3 shadow-lg shadow-black/5 backdrop-blur-xl transition-all duration-300 ease-out",
           scrolled ? "py-2 sm:py-2.5 bg-white/90 shadow-xl shadow-black/10" : ""
         )}
       >
         {/* Logo & Brand */}
-        <Link href="/" className="flex items-center gap-3 shrink-0">
+        <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3 lg:shrink-0">
           <Image
             src="/images/logo-icon.png"
             alt="Logo PT Ariyan Medika Utama"
             width={38}
             height={38}
-            className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 object-contain"
+            className="h-7 w-7 shrink-0 object-contain sm:h-8 sm:w-8 lg:h-9 lg:w-9"
             priority
           />
-          <span className="text-sm font-bold tracking-tight text-ink-900 sm:text-base md:text-[1.15rem]">
+          <span className="truncate text-sm font-bold tracking-tight text-ink-900 sm:text-base lg:text-[1.15rem]">
             PT Ariyan Medika Utama
           </span>
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden gap-7 lg:gap-9 md:flex">
+        <nav className="hidden gap-7 lg:flex xl:gap-9">
           {navItems.map((item) =>
             item.label === "Layanan" ? (
               <details key={item.href} className="group relative">
@@ -82,7 +82,7 @@ export default function Header() {
         </nav>
 
         {/* Button */}
-        <Button asChild className="hidden md:inline-flex rounded-full px-6 h-10 font-semibold shadow-md shadow-brand/20">
+        <Button asChild className="hidden lg:inline-flex shrink-0 rounded-full px-6 h-10 font-semibold shadow-md shadow-brand/20">
           <a
             href="https://wa.me/6285719906608"
             target="_blank"
